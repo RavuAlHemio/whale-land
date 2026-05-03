@@ -1,0 +1,10 @@
+[package]
+name = "wlproto"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.6", features = ["derive"] }
+proc-macro2 = { version = "1.0" }
+quote = { version = "1.0" }
+sxd-document = { version = "0.3" }

@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "examples/activate-linux",
+    "whale-land",
+    "wlproto",
+]
+resolver = "3"
