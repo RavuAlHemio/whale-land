@@ -17,6 +17,7 @@ pub enum Error {
     IncompleteRead { read_bytes: usize, total_bytes: usize, read_fds: usize, total_fds: usize },
     ZeroObjectId,
     NoEventHandler { object_id: ObjectId },
+    ConnectionDeleted,
 }
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -43,6 +44,8 @@ impl fmt::Display for Error {
                 => write!(f, "object ID was zero where a concrete object ID was expected"),
             Self::NoEventHandler { object_id }
                 => write!(f, "no event handler for object ID {}", object_id.0),
+            Self::ConnectionDeleted
+                => write!(f, "the connection was deleted in the meantime"),
         }
     }
 }
@@ -60,6 +63,7 @@ impl std::error::Error for Error {
             Self::IncompleteRead { .. } => None,
             Self::ZeroObjectId => None,
             Self::NoEventHandler { .. } => None,
+            Self::ConnectionDeleted => None,
         }
     }
 }

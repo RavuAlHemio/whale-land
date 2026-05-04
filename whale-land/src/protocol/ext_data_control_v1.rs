@@ -2,37 +2,51 @@
 
 #![allow(non_camel_case_types)]
 #[allow(unused)]
-pub struct ext_data_control_manager_v1_v1_request_proxy<'a> {
-    connection: &'a crate::Connection,
+pub struct ext_data_control_manager_v1_v1_request_proxy {
+    object_id: crate::ObjectId,
+    connection: crate::WeakConnection,
 }
 #[allow(unused)]
-impl<'a> ext_data_control_manager_v1_v1_request_proxy<'a> {
-    pub fn new(connection: &'a crate::Connection) -> Self {
-        Self { connection }
+impl ext_data_control_manager_v1_v1_request_proxy {
+    pub fn new(object_id: crate::ObjectId, connection: crate::WeakConnection) -> Self {
+        Self {
+            object_id,
+            connection,
+        }
     }
     pub async fn send_create_data_source(
         &self,
-        __object_id: crate::ObjectId,
         id: crate::NewObjectId,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 0);
+        let mut __packet = crate::Packet::new(self.object_id, 0);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_new_id_known_interface(id);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
     pub async fn send_get_data_device(
         &self,
-        __object_id: crate::ObjectId,
         id: crate::NewObjectId,
         seat: ::std::option::Option<crate::ObjectId>,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 1);
+        let mut __packet = crate::Packet::new(self.object_id, 1);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_new_id_known_interface(id);
         __packet.push_object(seat);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_destroy(&self, __object_id: crate::ObjectId) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 2);
-        self.connection.send_packet(&__packet).await
+    pub async fn send_destroy(&self) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 2);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
+        connection.send_packet(&__packet).await
     }
 }
 pub struct ext_data_control_manager_v1_v1_request_create_data_source_args {
@@ -258,35 +272,49 @@ pub trait ext_data_control_device_v1_v1_event_handler: crate::protocol::EventHan
     }
 }
 #[allow(unused)]
-pub struct ext_data_control_device_v1_v1_request_proxy<'a> {
-    connection: &'a crate::Connection,
+pub struct ext_data_control_device_v1_v1_request_proxy {
+    object_id: crate::ObjectId,
+    connection: crate::WeakConnection,
 }
 #[allow(unused)]
-impl<'a> ext_data_control_device_v1_v1_request_proxy<'a> {
-    pub fn new(connection: &'a crate::Connection) -> Self {
-        Self { connection }
+impl ext_data_control_device_v1_v1_request_proxy {
+    pub fn new(object_id: crate::ObjectId, connection: crate::WeakConnection) -> Self {
+        Self {
+            object_id,
+            connection,
+        }
     }
     pub async fn send_set_selection(
         &self,
-        __object_id: crate::ObjectId,
         source: ::std::option::Option<crate::ObjectId>,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 0);
+        let mut __packet = crate::Packet::new(self.object_id, 0);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_object(source);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_destroy(&self, __object_id: crate::ObjectId) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 1);
-        self.connection.send_packet(&__packet).await
+    pub async fn send_destroy(&self) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 1);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
+        connection.send_packet(&__packet).await
     }
     pub async fn send_set_primary_selection(
         &self,
-        __object_id: crate::ObjectId,
         source: ::std::option::Option<crate::ObjectId>,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 2);
+        let mut __packet = crate::Packet::new(self.object_id, 2);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_object(source);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
 }
 pub struct ext_data_control_device_v1_v1_request_set_selection_args {
@@ -664,26 +692,34 @@ pub trait ext_data_control_source_v1_v1_event_handler: crate::protocol::EventHan
     }
 }
 #[allow(unused)]
-pub struct ext_data_control_source_v1_v1_request_proxy<'a> {
-    connection: &'a crate::Connection,
+pub struct ext_data_control_source_v1_v1_request_proxy {
+    object_id: crate::ObjectId,
+    connection: crate::WeakConnection,
 }
 #[allow(unused)]
-impl<'a> ext_data_control_source_v1_v1_request_proxy<'a> {
-    pub fn new(connection: &'a crate::Connection) -> Self {
-        Self { connection }
+impl ext_data_control_source_v1_v1_request_proxy {
+    pub fn new(object_id: crate::ObjectId, connection: crate::WeakConnection) -> Self {
+        Self {
+            object_id,
+            connection,
+        }
     }
-    pub async fn send_offer(
-        &self,
-        __object_id: crate::ObjectId,
-        mime_type: &str,
-    ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 0);
+    pub async fn send_offer(&self, mime_type: &str) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 0);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_str(&mime_type);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_destroy(&self, __object_id: crate::ObjectId) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 1);
-        self.connection.send_packet(&__packet).await
+    pub async fn send_destroy(&self) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 1);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
+        connection.send_packet(&__packet).await
     }
 }
 pub struct ext_data_control_source_v1_v1_request_offer_args {
@@ -906,28 +942,39 @@ pub trait ext_data_control_offer_v1_v1_event_handler: crate::protocol::EventHand
     }
 }
 #[allow(unused)]
-pub struct ext_data_control_offer_v1_v1_request_proxy<'a> {
-    connection: &'a crate::Connection,
+pub struct ext_data_control_offer_v1_v1_request_proxy {
+    object_id: crate::ObjectId,
+    connection: crate::WeakConnection,
 }
 #[allow(unused)]
-impl<'a> ext_data_control_offer_v1_v1_request_proxy<'a> {
-    pub fn new(connection: &'a crate::Connection) -> Self {
-        Self { connection }
+impl ext_data_control_offer_v1_v1_request_proxy {
+    pub fn new(object_id: crate::ObjectId, connection: crate::WeakConnection) -> Self {
+        Self {
+            object_id,
+            connection,
+        }
     }
     pub async fn send_receive(
         &self,
-        __object_id: crate::ObjectId,
         mime_type: &str,
         fd: ::std::os::fd::RawFd,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 0);
+        let mut __packet = crate::Packet::new(self.object_id, 0);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_str(&mime_type);
         __packet.push_fd(fd);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_destroy(&self, __object_id: crate::ObjectId) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 1);
-        self.connection.send_packet(&__packet).await
+    pub async fn send_destroy(&self) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 1);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
+        connection.send_packet(&__packet).await
     }
 }
 pub struct ext_data_control_offer_v1_v1_request_receive_args {

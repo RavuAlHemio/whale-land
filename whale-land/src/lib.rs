@@ -8,7 +8,7 @@ mod socket_fd_ext;
 
 use std::num::NonZero;
 
-pub use crate::connection::Connection;
+pub use crate::connection::{Connection, WeakConnection};
 pub use crate::error::Error;
 pub use crate::fixed::Fixed;
 pub use crate::packet::Packet;

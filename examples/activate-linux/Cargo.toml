@@ -4,5 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+async-trait = { version = "0.1" }
 whale-land = { path = "../../whale-land" }
 tokio = { version = "1.52", features = ["macros", "rt", "rt-multi-thread"] }

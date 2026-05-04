@@ -2,34 +2,45 @@
 
 #![allow(non_camel_case_types)]
 #[allow(unused)]
-pub struct zwlr_layer_shell_v1_v5_request_proxy<'a> {
-    connection: &'a crate::Connection,
+pub struct zwlr_layer_shell_v1_v5_request_proxy {
+    object_id: crate::ObjectId,
+    connection: crate::WeakConnection,
 }
 #[allow(unused)]
-impl<'a> zwlr_layer_shell_v1_v5_request_proxy<'a> {
-    pub fn new(connection: &'a crate::Connection) -> Self {
-        Self { connection }
+impl zwlr_layer_shell_v1_v5_request_proxy {
+    pub fn new(object_id: crate::ObjectId, connection: crate::WeakConnection) -> Self {
+        Self {
+            object_id,
+            connection,
+        }
     }
     pub async fn send_get_layer_surface(
         &self,
-        __object_id: crate::ObjectId,
         id: crate::NewObjectId,
         surface: ::std::option::Option<crate::ObjectId>,
         output: ::std::option::Option<crate::ObjectId>,
         layer: u32,
         namespace: &str,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 0);
+        let mut __packet = crate::Packet::new(self.object_id, 0);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_new_id_known_interface(id);
         __packet.push_object(surface);
         __packet.push_object(output);
         __packet.push_uint(layer);
         __packet.push_str(&namespace);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_destroy(&self, __object_id: crate::ObjectId) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 1);
-        self.connection.send_packet(&__packet).await
+    pub async fn send_destroy(&self) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 1);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
+        connection.send_packet(&__packet).await
     }
 }
 pub struct zwlr_layer_shell_v1_v5_request_get_layer_surface_args {
@@ -193,106 +204,122 @@ pub trait zwlr_layer_surface_v1_v5_event_handler: crate::protocol::EventHandler 
     }
 }
 #[allow(unused)]
-pub struct zwlr_layer_surface_v1_v5_request_proxy<'a> {
-    connection: &'a crate::Connection,
+pub struct zwlr_layer_surface_v1_v5_request_proxy {
+    object_id: crate::ObjectId,
+    connection: crate::WeakConnection,
 }
 #[allow(unused)]
-impl<'a> zwlr_layer_surface_v1_v5_request_proxy<'a> {
-    pub fn new(connection: &'a crate::Connection) -> Self {
-        Self { connection }
+impl zwlr_layer_surface_v1_v5_request_proxy {
+    pub fn new(object_id: crate::ObjectId, connection: crate::WeakConnection) -> Self {
+        Self {
+            object_id,
+            connection,
+        }
     }
-    pub async fn send_set_size(
-        &self,
-        __object_id: crate::ObjectId,
-        width: u32,
-        height: u32,
-    ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 0);
+    pub async fn send_set_size(&self, width: u32, height: u32) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 0);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_uint(width);
         __packet.push_uint(height);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_set_anchor(
-        &self,
-        __object_id: crate::ObjectId,
-        anchor: u32,
-    ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 1);
+    pub async fn send_set_anchor(&self, anchor: u32) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 1);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_uint(anchor);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_set_exclusive_zone(
-        &self,
-        __object_id: crate::ObjectId,
-        zone: i32,
-    ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 2);
+    pub async fn send_set_exclusive_zone(&self, zone: i32) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 2);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_int(zone);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
     pub async fn send_set_margin(
         &self,
-        __object_id: crate::ObjectId,
         top: i32,
         right: i32,
         bottom: i32,
         left: i32,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 3);
+        let mut __packet = crate::Packet::new(self.object_id, 3);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_int(top);
         __packet.push_int(right);
         __packet.push_int(bottom);
         __packet.push_int(left);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
     pub async fn send_set_keyboard_interactivity(
         &self,
-        __object_id: crate::ObjectId,
         keyboard_interactivity: u32,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 4);
+        let mut __packet = crate::Packet::new(self.object_id, 4);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_uint(keyboard_interactivity);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
     pub async fn send_get_popup(
         &self,
-        __object_id: crate::ObjectId,
         popup: ::std::option::Option<crate::ObjectId>,
     ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 5);
+        let mut __packet = crate::Packet::new(self.object_id, 5);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_object(popup);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_ack_configure(
-        &self,
-        __object_id: crate::ObjectId,
-        serial: u32,
-    ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 6);
+    pub async fn send_ack_configure(&self, serial: u32) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 6);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_uint(serial);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_destroy(&self, __object_id: crate::ObjectId) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 7);
-        self.connection.send_packet(&__packet).await
+    pub async fn send_destroy(&self) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 7);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_set_layer(
-        &self,
-        __object_id: crate::ObjectId,
-        layer: u32,
-    ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 8);
+    pub async fn send_set_layer(&self, layer: u32) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 8);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_uint(layer);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
-    pub async fn send_set_exclusive_edge(
-        &self,
-        __object_id: crate::ObjectId,
-        edge: u32,
-    ) -> Result<(), crate::Error> {
-        let mut __packet = crate::Packet::new(__object_id, 9);
+    pub async fn send_set_exclusive_edge(&self, edge: u32) -> Result<(), crate::Error> {
+        let mut __packet = crate::Packet::new(self.object_id, 9);
+        let connection = match self.connection.upgrade() {
+            Some(c) => c,
+            None => return Err(crate::Error::ConnectionDeleted),
+        };
         __packet.push_uint(edge);
-        self.connection.send_packet(&__packet).await
+        connection.send_packet(&__packet).await
     }
 }
 pub struct zwlr_layer_surface_v1_v5_request_set_size_args {

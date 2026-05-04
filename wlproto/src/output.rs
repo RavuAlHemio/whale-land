@@ -232,28 +232,35 @@ impl Tokenizer {
                 }
 
                 proxy_funcs.push(quote! {
-                    pub async fn #req_name (&self, __object_id: #namespace_tokens ObjectId #( , #args )* ) -> Result<(), #namespace_tokens Error> {
+                    pub async fn #req_name (&self #( , #args )* ) -> Result<(), #namespace_tokens Error> {
                         let mut __packet = #namespace_tokens Packet::new(
-                            __object_id,
+                            self.object_id,
                             #req_index_literal ,
                         );
+                        let connection = match self.connection.upgrade() {
+                            Some(c) => c,
+                            None => return Err( #namespace_tokens Error::ConnectionDeleted )
+                        };
                         #( #arg_write_func_calls )*
-                        self.connection.send_packet(&__packet).await
+                        connection.send_packet(&__packet).await
                     }
                 })
             }
 
             quote! {
                 #[allow(unused)]
-                pub struct #request_proxy_name <'a> {
-                    connection: &'a #namespace_tokens Connection,
+                pub struct #request_proxy_name {
+                    object_id: #namespace_tokens ObjectId,
+                    connection: #namespace_tokens WeakConnection,
                 }
                 #[allow(unused)]
-                impl<'a> #request_proxy_name <'a> {
+                impl #request_proxy_name {
                     pub fn new(
-                        connection: &'a #namespace_tokens Connection,
+                        object_id: #namespace_tokens ObjectId,
+                        connection: #namespace_tokens WeakConnection,
                     ) -> Self {
                         Self {
+                            object_id,
                             connection,
                         }
                     }

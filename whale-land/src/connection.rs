@@ -2,13 +2,15 @@ use std::collections::BTreeMap;
 use std::env;
 use std::ffi::OsString;
 use std::num::NonZero;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
+use std::sync::{Arc, Weak};
 use std::sync::atomic::{AtomicU32, Ordering};
 
 use tokio::net::UnixStream;
-use tokio::sync::Mutex;
+use tokio::sync::{Mutex, RwLock};
 use tracing::debug;
 
+use crate::protocol::wayland::wl_display_v1_request_proxy;
 use crate::{Error, ObjectId, Packet};
 use crate::protocol::EventHandler;
 use crate::socket_fd_ext::SocketFdExt;
@@ -20,11 +22,7 @@ const DEFAULT_WAYLAND_DISPLAY: &str = "wayland-0";
 
 
 pub struct Connection {
-    socket: UnixStream,
-    send_lock: Mutex<()>,
-    recv_lock: Mutex<()>,
-    next_object_id: AtomicU32,
-    object_id_to_event_handler: BTreeMap<ObjectId, Box<dyn EventHandler + Send + Sync>>,
+    inner: Arc<InnerConnection>,
 }
 impl Connection {
     pub async fn new_from_env() -> Result<Self, Error> {
@@ -35,13 +33,19 @@ impl Connection {
         let mut wayland_display_path = PathBuf::from(&runtime_dir);
         wayland_display_path.push(&wayland_display);
 
-        let socket = UnixStream::connect(&wayland_display_path).await?;
+        Self::new_from_socket_path(&wayland_display_path).await
+    }
+
+    pub async fn new_from_socket_path(path: &Path) -> Result<Self, Error> {
+        let socket = UnixStream::connect(path).await?;
         Ok(Self {
-            socket,
-            send_lock: Mutex::new(()),
-            recv_lock: Mutex::new(()),
-            next_object_id: AtomicU32::new(2), // 0 is NULL, 1 is always wl_display
-            object_id_to_event_handler: BTreeMap::new(),
+            inner: Arc::new(InnerConnection {
+                socket,
+                send_lock: Mutex::new(()),
+                recv_lock: Mutex::new(()),
+                next_object_id: AtomicU32::new(2), // 0 is NULL, 1 is always wl_display
+                object_id_to_event_handler: RwLock::new(BTreeMap::new()),
+            }),
         })
     }
 
@@ -49,15 +53,15 @@ impl Connection {
         let serialized = packet.serialize()?;
 
         {
-            let send_guard = self.send_lock.lock().await;
+            let send_guard = self.inner.send_lock.lock().await;
 
             // SocketFdExt functions handle WouldBlock for us
-            let mut total_sent = self.socket
+            let mut total_sent = self.inner.socket
                 .send_with_fds(&serialized, packet.fds()).await?;
 
             while total_sent < serialized.len() {
                 // send more
-                let now_sent = self.socket.send(&serialized[total_sent..]).await?;
+                let now_sent = self.inner.socket.send(&serialized[total_sent..]).await?;
                 total_sent += now_sent;
             }
 
@@ -69,18 +73,18 @@ impl Connection {
 
     pub async fn recv_packet(&self) -> Result<Packet, Error> {
         let packet = {
-            let recv_guard = self.recv_lock.lock().await;
+            let recv_guard = self.inner.recv_lock.lock().await;
 
             // sender ID, size, opcode
             let mut fixed_buf = [0u8; 8];
             let mut fds = Vec::new();
 
             // SocketFdExt functions handle WouldBlock for us
-            let (mut total_received, _fd_count) = self.socket
+            let (mut total_received, _fd_count) = self.inner.socket
                 .recv_with_fds(&mut fixed_buf, &mut fds).await?;
             while total_received < fixed_buf.len() {
                 // receive more
-                let (now_received, _now_received_fds) = self.socket
+                let (now_received, _now_received_fds) = self.inner.socket
                     .recv_with_fds(&mut fixed_buf[total_received..], &mut fds).await?;
                 total_received += now_received;
             }
@@ -101,10 +105,10 @@ impl Connection {
 
             // read the payload
             let mut payload = vec![0u8; packet_size - 8];
-            (total_received, _) = self.socket
+            (total_received, _) = self.inner.socket
                 .recv_with_fds(&mut payload, &mut fds).await?;
             while total_received < payload.len() {
-                let (now_received, _) = self.socket
+                let (now_received, _) = self.inner.socket
                     .recv_with_fds(&mut payload[total_received..], &mut fds).await?;
                 total_received += now_received;
             }
@@ -124,25 +128,35 @@ impl Connection {
 
     pub fn get_and_increment_next_object_id(&self) -> ObjectId {
         loop {
-            let new_val = self.next_object_id.fetch_add(1, Ordering::SeqCst);
+            let new_val = self.inner.next_object_id.fetch_add(1, Ordering::SeqCst);
             if let Some(oid) = ObjectId::new(new_val) {
                 return oid;
             }
         }
     }
 
-    pub fn register_handler(&mut self, object_id: ObjectId, event_handler: Box<dyn EventHandler + Send + Sync>) {
-        self.object_id_to_event_handler
+    pub fn get_display_proxy(&self) -> wl_display_v1_request_proxy {
+        wl_display_v1_request_proxy::new(ObjectId::DISPLAY, self.downgrade())
+    }
+
+    pub async fn register_handler(&self, object_id: ObjectId, event_handler: Box<dyn EventHandler + Send + Sync>) {
+        let mut map_guard = self.inner.object_id_to_event_handler
+            .write().await;
+        map_guard
             .insert(object_id, event_handler);
     }
 
-    pub fn drop_handler(&mut self, object_id: ObjectId) {
-        self.object_id_to_event_handler
+    pub async fn drop_handler(&self, object_id: ObjectId) {
+        let mut map_guard = self.inner.object_id_to_event_handler
+            .write().await;
+        map_guard
             .remove(&object_id);
     }
 
     pub async fn dispatch(&self, packet: Packet) -> Result<(), Error> {
-        let event_handler = self.object_id_to_event_handler
+        let map_guard = self.inner.object_id_to_event_handler
+            .read().await;
+        let event_handler = map_guard
             .get(&packet.object_id());
         match event_handler {
             Some(eh) => eh.handle_event(self, packet).await,
@@ -154,4 +168,26 @@ impl Connection {
             },
         }
     }
+
+    pub fn downgrade(&self) -> WeakConnection {
+        WeakConnection { inner: Arc::downgrade(&self.inner) }
+    }
+}
+
+pub struct WeakConnection {
+    inner: Weak<InnerConnection>,
+}
+impl WeakConnection {
+    pub fn upgrade(&self) -> Option<Connection> {
+        self.inner.upgrade()
+            .map(|i| Connection { inner: i })
+    }
+}
+
+struct InnerConnection {
+    socket: UnixStream,
+    send_lock: Mutex<()>,
+    recv_lock: Mutex<()>,
+    next_object_id: AtomicU32,
+    object_id_to_event_handler: RwLock<BTreeMap<ObjectId, Box<dyn EventHandler + Send + Sync>>>,
 }
