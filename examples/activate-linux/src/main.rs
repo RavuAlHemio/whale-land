@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 use whale_land::{Connection, Error, NewObjectId, Packet};
 use whale_land::protocol::EventHandler;
-use whale_land::protocol::wayland::wl_registry_v1_event_handler;
+use tracing::{debug, instrument};
 
 
 struct RegistryHandler;
@@ -12,6 +12,7 @@ impl EventHandler for RegistryHandler {
     }
 }
 impl wl_registry_v1_event_handler for RegistryHandler {
+    #[instrument(skip_all)]
     async fn handle_global(
         &self,
         connection: &whale_land::Connection,
@@ -20,10 +21,9 @@ impl wl_registry_v1_event_handler for RegistryHandler {
         interface: ::std::string::String,
         version: u32,
     ) {
-        let _ = (connection, packet);
-        println!("{} is {:?} version {}", name, interface, version);
     }
 
+    #[instrument(skip_all)]
     async fn handle_global_remove(
         &self,
         connection: &whale_land::Connection,
@@ -31,12 +31,16 @@ impl wl_registry_v1_event_handler for RegistryHandler {
         name: u32,
     ) {
         let _ = (connection, packet);
-        println!("{} is gone", name);
+        debug!("{} is gone", name);
     }
 }
 
 
 async fn run() {
+    tracing_subscriber::fmt()
+        .with_env_filter(tracing_subscriber::EnvFilter::from_default_env())
+        .init();
+
     // connect to Wayland
     let wl = Connection::new_from_env()
         .await.expect("failed to connect to Wayland");
@@ -52,7 +56,7 @@ async fn run() {
     loop {
         let packet = wl.recv_packet()
             .await.expect("failed to receive Wayland packet");
-        println!("{:?}", packet);
+        debug!("{:?}", packet);
         wl.dispatch(packet)
             .await.expect("failed to dispatch Wayland packet");
     };
