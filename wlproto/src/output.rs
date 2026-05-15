@@ -272,6 +272,99 @@ impl Tokenizer {
             TokenStream::new()
         };
 
+        let mut enums = Vec::with_capacity(interface.enums.len());
+        for enu in &interface.enums {
+            let enum_name_u32 = Ident::new(
+                &format!("{}_{}_u32", interface_name_ver, enu.name),
+                Span::call_site(),
+            );
+            let enum_name_i32 = Ident::new(
+                &format!("{}_{}_i32", interface_name_ver, enu.name),
+                Span::call_site(),
+            );
+            let doc_string_opt = match (enu.short_description.as_ref(), enu.description.as_ref()) {
+                (None, None) => None,
+                (Some(sd), None) => Some(sd.clone()),
+                (None, Some(d)) => Some(d.clone()),
+                (Some(sd), Some(d)) => Some(format!("{}\n\n{}", sd, d)),
+            };
+            let doc_attrib_tokens = if let Some(doc_string) = doc_string_opt {
+                quote! {
+                    #[doc = #doc_string]
+                }
+            } else {
+                TokenStream::new()
+            };
+
+            let mut variants_u32 = Vec::new();
+            let mut variants_i32 = Vec::new();
+            for variant in &enu.variants {
+                let variant_doc_attrib_tokens = if let Some(vd) = variant.short_description.as_ref() {
+                    quote! {
+                        #[doc = #vd]
+                    }
+                } else {
+                    TokenStream::new()
+                };
+
+                let variant_name_string = if variant.name.starts_with(|c| c >= '0' && c <= '9') {
+                    format!("VARIANT_{}", variant.name.to_uppercase())
+                } else {
+                    variant.name.to_uppercase()
+                };
+
+                let variant_name = Ident::new(&variant_name_string, Span::call_site());
+                let variant_value_u32 = Literal::u32_unsuffixed(variant.value);
+                let variant_value_i32 = Literal::i32_unsuffixed(variant.value as i32);
+                variants_u32.push(quote! {
+                    #variant_doc_attrib_tokens
+                    pub const #variant_name : Self = Self( #variant_value_u32 );
+                });
+                variants_i32.push(quote! {
+                    #variant_doc_attrib_tokens
+                    pub const #variant_name : Self = Self( #variant_value_i32 );
+                });
+            }
+
+            enums.push(quote! {
+                #doc_attrib_tokens
+                #[allow(unused)]
+                #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+                pub struct #enum_name_u32(u32);
+                impl #enum_name_u32 {
+                    #( #variants_u32 )*
+                }
+                impl ::std::convert::From<u32> for #enum_name_u32 {
+                    fn from(value: u32) -> Self {
+                        Self(value)
+                    }
+                }
+                impl ::std::convert::From<#enum_name_u32> for u32 {
+                    fn from(value: #enum_name_u32) -> Self {
+                        value.0
+                    }
+                }
+
+                #doc_attrib_tokens
+                #[allow(unused)]
+                #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+                pub struct #enum_name_i32(i32);
+                impl #enum_name_i32 {
+                    #( #variants_i32 )*
+                }
+                impl ::std::convert::From<i32> for #enum_name_i32 {
+                    fn from(value: i32) -> Self {
+                        Self(value)
+                    }
+                }
+                impl ::std::convert::From<#enum_name_i32> for i32 {
+                    fn from(value: #enum_name_i32) -> Self {
+                        value.0
+                    }
+                }
+            });
+        }
+
         let mut arg_structs = Vec::new();
         let request_iterator = interface.requests
             .iter()
@@ -349,6 +442,7 @@ impl Tokenizer {
             #event_handlers
             #request_proxies
             #( #arg_structs )*
+            #( #enums )*
         }
     }
 

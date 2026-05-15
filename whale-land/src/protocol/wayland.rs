@@ -260,6 +260,54 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_display_v1_event_delete_id_arg
         __structure.try_into_packet(__object_id)
     }
 }
+#[doc = "global error values\n\n\n        These errors are global and can be emitted in response to any\n        server request.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_display_v1_error_u32(u32);
+impl wl_display_v1_error_u32 {
+    #[doc = "server couldn't find object"]
+    pub const INVALID_OBJECT: Self = Self(0);
+    #[doc = "method doesn't exist on the specified interface or malformed request"]
+    pub const INVALID_METHOD: Self = Self(1);
+    #[doc = "server is out of memory"]
+    pub const NO_MEMORY: Self = Self(2);
+    #[doc = "implementation error in compositor"]
+    pub const IMPLEMENTATION: Self = Self(3);
+}
+impl ::std::convert::From<u32> for wl_display_v1_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_display_v1_error_u32> for u32 {
+    fn from(value: wl_display_v1_error_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "global error values\n\n\n        These errors are global and can be emitted in response to any\n        server request.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_display_v1_error_i32(i32);
+impl wl_display_v1_error_i32 {
+    #[doc = "server couldn't find object"]
+    pub const INVALID_OBJECT: Self = Self(0);
+    #[doc = "method doesn't exist on the specified interface or malformed request"]
+    pub const INVALID_METHOD: Self = Self(1);
+    #[doc = "server is out of memory"]
+    pub const NO_MEMORY: Self = Self(2);
+    #[doc = "implementation error in compositor"]
+    pub const IMPLEMENTATION: Self = Self(3);
+}
+impl ::std::convert::From<i32> for wl_display_v1_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_display_v1_error_i32> for i32 {
+    fn from(value: wl_display_v1_error_i32) -> Self {
+        value.0
+    }
+}
 #[allow(unused)]
 pub trait wl_registry_v1_event_handler: crate::protocol::EventHandler {
     fn handle_global(
@@ -1103,6 +1151,630 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_shm_v2_event_format_args)> for
         __structure.try_into_packet(__object_id)
     }
 }
+#[doc = "wl_shm error values\n\n\n        These errors can be emitted in response to wl_shm requests.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shm_v2_error_u32(u32);
+impl wl_shm_v2_error_u32 {
+    #[doc = "buffer format is not known"]
+    pub const INVALID_FORMAT: Self = Self(0);
+    #[doc = "invalid size or stride during pool or buffer creation"]
+    pub const INVALID_STRIDE: Self = Self(1);
+    #[doc = "mmapping the file descriptor failed"]
+    pub const INVALID_FD: Self = Self(2);
+}
+impl ::std::convert::From<u32> for wl_shm_v2_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shm_v2_error_u32> for u32 {
+    fn from(value: wl_shm_v2_error_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "wl_shm error values\n\n\n        These errors can be emitted in response to wl_shm requests.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shm_v2_error_i32(i32);
+impl wl_shm_v2_error_i32 {
+    #[doc = "buffer format is not known"]
+    pub const INVALID_FORMAT: Self = Self(0);
+    #[doc = "invalid size or stride during pool or buffer creation"]
+    pub const INVALID_STRIDE: Self = Self(1);
+    #[doc = "mmapping the file descriptor failed"]
+    pub const INVALID_FD: Self = Self(2);
+}
+impl ::std::convert::From<i32> for wl_shm_v2_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shm_v2_error_i32> for i32 {
+    fn from(value: wl_shm_v2_error_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "pixel formats\n\n\n        This describes the memory layout of an individual pixel.\n\n        All renderers should support argb8888 and xrgb8888 but any other\n        formats are optional and may not be supported by the particular\n        renderer in use.\n\n        The drm format codes match the macros defined in drm_fourcc.h, except\n        argb8888 and xrgb8888. The formats actually supported by the compositor\n        will be reported by the format event. See drm_fourcc.h for more detailed\n        format descriptions.\n\n        For all wl_shm formats and unless specified in another protocol\n        extension, pre-multiplied alpha is used for pixel values.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shm_v2_format_u32(u32);
+impl wl_shm_v2_format_u32 {
+    #[doc = "32-bit ARGB format, [31:0] A:R:G:B 8:8:8:8 little endian"]
+    pub const ARGB8888: Self = Self(0);
+    #[doc = "32-bit RGB format, [31:0] x:R:G:B 8:8:8:8 little endian"]
+    pub const XRGB8888: Self = Self(1);
+    #[doc = "8-bit color index format, [7:0] C"]
+    pub const C8: Self = Self(538982467);
+    #[doc = "8-bit RGB format, [7:0] R:G:B 3:3:2"]
+    pub const RGB332: Self = Self(943867730);
+    #[doc = "8-bit BGR format, [7:0] B:G:R 2:3:3"]
+    pub const BGR233: Self = Self(944916290);
+    #[doc = "16-bit xRGB format, [15:0] x:R:G:B 4:4:4:4 little endian"]
+    pub const XRGB4444: Self = Self(842093144);
+    #[doc = "16-bit xBGR format, [15:0] x:B:G:R 4:4:4:4 little endian"]
+    pub const XBGR4444: Self = Self(842089048);
+    #[doc = "16-bit RGBx format, [15:0] R:G:B:x 4:4:4:4 little endian"]
+    pub const RGBX4444: Self = Self(842094674);
+    #[doc = "16-bit BGRx format, [15:0] B:G:R:x 4:4:4:4 little endian"]
+    pub const BGRX4444: Self = Self(842094658);
+    #[doc = "16-bit ARGB format, [15:0] A:R:G:B 4:4:4:4 little endian"]
+    pub const ARGB4444: Self = Self(842093121);
+    #[doc = "16-bit ABGR format, [15:0] A:B:G:R 4:4:4:4 little endian"]
+    pub const ABGR4444: Self = Self(842089025);
+    #[doc = "16-bit RBGA format, [15:0] R:G:B:A 4:4:4:4 little endian"]
+    pub const RGBA4444: Self = Self(842088786);
+    #[doc = "16-bit BGRA format, [15:0] B:G:R:A 4:4:4:4 little endian"]
+    pub const BGRA4444: Self = Self(842088770);
+    #[doc = "16-bit xRGB format, [15:0] x:R:G:B 1:5:5:5 little endian"]
+    pub const XRGB1555: Self = Self(892424792);
+    #[doc = "16-bit xBGR 1555 format, [15:0] x:B:G:R 1:5:5:5 little endian"]
+    pub const XBGR1555: Self = Self(892420696);
+    #[doc = "16-bit RGBx 5551 format, [15:0] R:G:B:x 5:5:5:1 little endian"]
+    pub const RGBX5551: Self = Self(892426322);
+    #[doc = "16-bit BGRx 5551 format, [15:0] B:G:R:x 5:5:5:1 little endian"]
+    pub const BGRX5551: Self = Self(892426306);
+    #[doc = "16-bit ARGB 1555 format, [15:0] A:R:G:B 1:5:5:5 little endian"]
+    pub const ARGB1555: Self = Self(892424769);
+    #[doc = "16-bit ABGR 1555 format, [15:0] A:B:G:R 1:5:5:5 little endian"]
+    pub const ABGR1555: Self = Self(892420673);
+    #[doc = "16-bit RGBA 5551 format, [15:0] R:G:B:A 5:5:5:1 little endian"]
+    pub const RGBA5551: Self = Self(892420434);
+    #[doc = "16-bit BGRA 5551 format, [15:0] B:G:R:A 5:5:5:1 little endian"]
+    pub const BGRA5551: Self = Self(892420418);
+    #[doc = "16-bit RGB 565 format, [15:0] R:G:B 5:6:5 little endian"]
+    pub const RGB565: Self = Self(909199186);
+    #[doc = "16-bit BGR 565 format, [15:0] B:G:R 5:6:5 little endian"]
+    pub const BGR565: Self = Self(909199170);
+    #[doc = "24-bit RGB format, [23:0] R:G:B little endian"]
+    pub const RGB888: Self = Self(875710290);
+    #[doc = "24-bit BGR format, [23:0] B:G:R little endian"]
+    pub const BGR888: Self = Self(875710274);
+    #[doc = "32-bit xBGR format, [31:0] x:B:G:R 8:8:8:8 little endian"]
+    pub const XBGR8888: Self = Self(875709016);
+    #[doc = "32-bit RGBx format, [31:0] R:G:B:x 8:8:8:8 little endian"]
+    pub const RGBX8888: Self = Self(875714642);
+    #[doc = "32-bit BGRx format, [31:0] B:G:R:x 8:8:8:8 little endian"]
+    pub const BGRX8888: Self = Self(875714626);
+    #[doc = "32-bit ABGR format, [31:0] A:B:G:R 8:8:8:8 little endian"]
+    pub const ABGR8888: Self = Self(875708993);
+    #[doc = "32-bit RGBA format, [31:0] R:G:B:A 8:8:8:8 little endian"]
+    pub const RGBA8888: Self = Self(875708754);
+    #[doc = "32-bit BGRA format, [31:0] B:G:R:A 8:8:8:8 little endian"]
+    pub const BGRA8888: Self = Self(875708738);
+    #[doc = "32-bit xRGB format, [31:0] x:R:G:B 2:10:10:10 little endian"]
+    pub const XRGB2101010: Self = Self(808669784);
+    #[doc = "32-bit xBGR format, [31:0] x:B:G:R 2:10:10:10 little endian"]
+    pub const XBGR2101010: Self = Self(808665688);
+    #[doc = "32-bit RGBx format, [31:0] R:G:B:x 10:10:10:2 little endian"]
+    pub const RGBX1010102: Self = Self(808671314);
+    #[doc = "32-bit BGRx format, [31:0] B:G:R:x 10:10:10:2 little endian"]
+    pub const BGRX1010102: Self = Self(808671298);
+    #[doc = "32-bit ARGB format, [31:0] A:R:G:B 2:10:10:10 little endian"]
+    pub const ARGB2101010: Self = Self(808669761);
+    #[doc = "32-bit ABGR format, [31:0] A:B:G:R 2:10:10:10 little endian"]
+    pub const ABGR2101010: Self = Self(808665665);
+    #[doc = "32-bit RGBA format, [31:0] R:G:B:A 10:10:10:2 little endian"]
+    pub const RGBA1010102: Self = Self(808665426);
+    #[doc = "32-bit BGRA format, [31:0] B:G:R:A 10:10:10:2 little endian"]
+    pub const BGRA1010102: Self = Self(808665410);
+    #[doc = "packed YCbCr format, [31:0] Cr0:Y1:Cb0:Y0 8:8:8:8 little endian"]
+    pub const YUYV: Self = Self(1448695129);
+    #[doc = "packed YCbCr format, [31:0] Cb0:Y1:Cr0:Y0 8:8:8:8 little endian"]
+    pub const YVYU: Self = Self(1431918169);
+    #[doc = "packed YCbCr format, [31:0] Y1:Cr0:Y0:Cb0 8:8:8:8 little endian"]
+    pub const UYVY: Self = Self(1498831189);
+    #[doc = "packed YCbCr format, [31:0] Y1:Cb0:Y0:Cr0 8:8:8:8 little endian"]
+    pub const VYUY: Self = Self(1498765654);
+    #[doc = "packed AYCbCr format, [31:0] A:Y:Cb:Cr 8:8:8:8 little endian"]
+    pub const AYUV: Self = Self(1448433985);
+    #[doc = "2 plane YCbCr Cr:Cb format, 2x2 subsampled Cr:Cb plane"]
+    pub const NV12: Self = Self(842094158);
+    #[doc = "2 plane YCbCr Cb:Cr format, 2x2 subsampled Cb:Cr plane"]
+    pub const NV21: Self = Self(825382478);
+    #[doc = "2 plane YCbCr Cr:Cb format, 2x1 subsampled Cr:Cb plane"]
+    pub const NV16: Self = Self(909203022);
+    #[doc = "2 plane YCbCr Cb:Cr format, 2x1 subsampled Cb:Cr plane"]
+    pub const NV61: Self = Self(825644622);
+    #[doc = "3 plane YCbCr format, 4x4 subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV410: Self = Self(961959257);
+    #[doc = "3 plane YCbCr format, 4x4 subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU410: Self = Self(961893977);
+    #[doc = "3 plane YCbCr format, 4x1 subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV411: Self = Self(825316697);
+    #[doc = "3 plane YCbCr format, 4x1 subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU411: Self = Self(825316953);
+    #[doc = "3 plane YCbCr format, 2x2 subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV420: Self = Self(842093913);
+    #[doc = "3 plane YCbCr format, 2x2 subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU420: Self = Self(842094169);
+    #[doc = "3 plane YCbCr format, 2x1 subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV422: Self = Self(909202777);
+    #[doc = "3 plane YCbCr format, 2x1 subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU422: Self = Self(909203033);
+    #[doc = "3 plane YCbCr format, non-subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV444: Self = Self(875713881);
+    #[doc = "3 plane YCbCr format, non-subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU444: Self = Self(875714137);
+    #[doc = "[7:0] R"]
+    pub const R8: Self = Self(538982482);
+    #[doc = "[15:0] R little endian"]
+    pub const R16: Self = Self(540422482);
+    #[doc = "[15:0] R:G 8:8 little endian"]
+    pub const RG88: Self = Self(943212370);
+    #[doc = "[15:0] G:R 8:8 little endian"]
+    pub const GR88: Self = Self(943215175);
+    #[doc = "[31:0] R:G 16:16 little endian"]
+    pub const RG1616: Self = Self(842221394);
+    #[doc = "[31:0] G:R 16:16 little endian"]
+    pub const GR1616: Self = Self(842224199);
+    #[doc = "[63:0] x:R:G:B 16:16:16:16 little endian"]
+    pub const XRGB16161616F: Self = Self(1211388504);
+    #[doc = "[63:0] x:B:G:R 16:16:16:16 little endian"]
+    pub const XBGR16161616F: Self = Self(1211384408);
+    #[doc = "[63:0] A:R:G:B 16:16:16:16 little endian"]
+    pub const ARGB16161616F: Self = Self(1211388481);
+    #[doc = "[63:0] A:B:G:R 16:16:16:16 little endian"]
+    pub const ABGR16161616F: Self = Self(1211384385);
+    #[doc = "[31:0] X:Y:Cb:Cr 8:8:8:8 little endian"]
+    pub const XYUV8888: Self = Self(1448434008);
+    #[doc = "[23:0] Cr:Cb:Y 8:8:8 little endian"]
+    pub const VUY888: Self = Self(875713878);
+    #[doc = "Y followed by U then V, 10:10:10. Non-linear modifier only"]
+    pub const VUY101010: Self = Self(808670550);
+    #[doc = "[63:0] Cr0:0:Y1:0:Cb0:0:Y0:0 10:6:10:6:10:6:10:6 little endian per 2 Y pixels"]
+    pub const Y210: Self = Self(808530521);
+    #[doc = "[63:0] Cr0:0:Y1:0:Cb0:0:Y0:0 12:4:12:4:12:4:12:4 little endian per 2 Y pixels"]
+    pub const Y212: Self = Self(842084953);
+    #[doc = "[63:0] Cr0:Y1:Cb0:Y0 16:16:16:16 little endian per 2 Y pixels"]
+    pub const Y216: Self = Self(909193817);
+    #[doc = "[31:0] A:Cr:Y:Cb 2:10:10:10 little endian"]
+    pub const Y410: Self = Self(808531033);
+    #[doc = "[63:0] A:0:Cr:0:Y:0:Cb:0 12:4:12:4:12:4:12:4 little endian"]
+    pub const Y412: Self = Self(842085465);
+    #[doc = "[63:0] A:Cr:Y:Cb 16:16:16:16 little endian"]
+    pub const Y416: Self = Self(909194329);
+    #[doc = "[31:0] X:Cr:Y:Cb 2:10:10:10 little endian"]
+    pub const XVYU2101010: Self = Self(808670808);
+    #[doc = "[63:0] X:0:Cr:0:Y:0:Cb:0 12:4:12:4:12:4:12:4 little endian"]
+    pub const XVYU12_16161616: Self = Self(909334104);
+    #[doc = "[63:0] X:Cr:Y:Cb 16:16:16:16 little endian"]
+    pub const XVYU16161616: Self = Self(942954072);
+    #[doc = "[63:0]   A3:A2:Y3:0:Cr0:0:Y2:0:A1:A0:Y1:0:Cb0:0:Y0:0  1:1:8:2:8:2:8:2:1:1:8:2:8:2:8:2 little endian"]
+    pub const Y0L0: Self = Self(810299481);
+    #[doc = "[63:0]   X3:X2:Y3:0:Cr0:0:Y2:0:X1:X0:Y1:0:Cb0:0:Y0:0  1:1:8:2:8:2:8:2:1:1:8:2:8:2:8:2 little endian"]
+    pub const X0L0: Self = Self(810299480);
+    #[doc = "[63:0]   A3:A2:Y3:Cr0:Y2:A1:A0:Y1:Cb0:Y0  1:1:10:10:10:1:1:10:10:10 little endian"]
+    pub const Y0L2: Self = Self(843853913);
+    #[doc = "[63:0]   X3:X2:Y3:Cr0:Y2:X1:X0:Y1:Cb0:Y0  1:1:10:10:10:1:1:10:10:10 little endian"]
+    pub const X0L2: Self = Self(843853912);
+    pub const YUV420_8BIT: Self = Self(942691673);
+    pub const YUV420_10BIT: Self = Self(808539481);
+    pub const XRGB8888_A8: Self = Self(943805016);
+    pub const XBGR8888_A8: Self = Self(943800920);
+    pub const RGBX8888_A8: Self = Self(943806546);
+    pub const BGRX8888_A8: Self = Self(943806530);
+    pub const RGB888_A8: Self = Self(943798354);
+    pub const BGR888_A8: Self = Self(943798338);
+    pub const RGB565_A8: Self = Self(943797586);
+    pub const BGR565_A8: Self = Self(943797570);
+    #[doc = "non-subsampled Cr:Cb plane"]
+    pub const NV24: Self = Self(875714126);
+    #[doc = "non-subsampled Cb:Cr plane"]
+    pub const NV42: Self = Self(842290766);
+    #[doc = "2x1 subsampled Cr:Cb plane, 10 bit per channel"]
+    pub const P210: Self = Self(808530512);
+    #[doc = "2x2 subsampled Cr:Cb plane 10 bits per channel"]
+    pub const P010: Self = Self(808530000);
+    #[doc = "2x2 subsampled Cr:Cb plane 12 bits per channel"]
+    pub const P012: Self = Self(842084432);
+    #[doc = "2x2 subsampled Cr:Cb plane 16 bits per channel"]
+    pub const P016: Self = Self(909193296);
+    #[doc = "[63:0] A:x:B:x:G:x:R:x 10:6:10:6:10:6:10:6 little endian"]
+    pub const AXBXGXRX106106106106: Self = Self(808534593);
+    #[doc = "2x2 subsampled Cr:Cb plane"]
+    pub const NV15: Self = Self(892425806);
+    pub const Q410: Self = Self(808531025);
+    pub const Q401: Self = Self(825242705);
+    #[doc = "[63:0] x:R:G:B 16:16:16:16 little endian"]
+    pub const XRGB16161616: Self = Self(942953048);
+    #[doc = "[63:0] x:B:G:R 16:16:16:16 little endian"]
+    pub const XBGR16161616: Self = Self(942948952);
+    #[doc = "[63:0] A:R:G:B 16:16:16:16 little endian"]
+    pub const ARGB16161616: Self = Self(942953025);
+    #[doc = "[63:0] A:B:G:R 16:16:16:16 little endian"]
+    pub const ABGR16161616: Self = Self(942948929);
+    #[doc = "[7:0] C0:C1:C2:C3:C4:C5:C6:C7 1:1:1:1:1:1:1:1 eight pixels/byte"]
+    pub const C1: Self = Self(538980675);
+    #[doc = "[7:0] C0:C1:C2:C3 2:2:2:2 four pixels/byte"]
+    pub const C2: Self = Self(538980931);
+    #[doc = "[7:0] C0:C1 4:4 two pixels/byte"]
+    pub const C4: Self = Self(538981443);
+    #[doc = "[7:0] D0:D1:D2:D3:D4:D5:D6:D7 1:1:1:1:1:1:1:1 eight pixels/byte"]
+    pub const D1: Self = Self(538980676);
+    #[doc = "[7:0] D0:D1:D2:D3 2:2:2:2 four pixels/byte"]
+    pub const D2: Self = Self(538980932);
+    #[doc = "[7:0] D0:D1 4:4 two pixels/byte"]
+    pub const D4: Self = Self(538981444);
+    #[doc = "[7:0] D"]
+    pub const D8: Self = Self(538982468);
+    #[doc = "[7:0] R0:R1:R2:R3:R4:R5:R6:R7 1:1:1:1:1:1:1:1 eight pixels/byte"]
+    pub const R1: Self = Self(538980690);
+    #[doc = "[7:0] R0:R1:R2:R3 2:2:2:2 four pixels/byte"]
+    pub const R2: Self = Self(538980946);
+    #[doc = "[7:0] R0:R1 4:4 two pixels/byte"]
+    pub const R4: Self = Self(538981458);
+    #[doc = "[15:0] x:R 6:10 little endian"]
+    pub const R10: Self = Self(540029266);
+    #[doc = "[15:0] x:R 4:12 little endian"]
+    pub const R12: Self = Self(540160338);
+    #[doc = "[31:0] A:Cr:Cb:Y 8:8:8:8 little endian"]
+    pub const AVUY8888: Self = Self(1498764865);
+    #[doc = "[31:0] X:Cr:Cb:Y 8:8:8:8 little endian"]
+    pub const XVUY8888: Self = Self(1498764888);
+    #[doc = "2x2 subsampled Cr:Cb plane 10 bits per channel packed"]
+    pub const P030: Self = Self(808661072);
+    #[doc = "[47:0] R:G:B 16:16:16 little endian"]
+    pub const RGB161616: Self = Self(942950226);
+    #[doc = "[47:0] B:G:R 16:16:16 little endian"]
+    pub const BGR161616: Self = Self(942950210);
+    #[doc = "[15:0] R 16 little endian"]
+    pub const R16F: Self = Self(1210064978);
+    #[doc = "[31:0] G:R 16:16 little endian"]
+    pub const GR1616F: Self = Self(1210077767);
+    #[doc = "[47:0] B:G:R 16:16:16 little endian"]
+    pub const BGR161616F: Self = Self(1213351746);
+    #[doc = "[31:0] R 32 little endian"]
+    pub const R32F: Self = Self(1176510546);
+    #[doc = "[63:0] R:G 32:32 little endian"]
+    pub const GR3232F: Self = Self(1176523335);
+    #[doc = "[95:0] R:G:B 32:32:32 little endian"]
+    pub const BGR323232F: Self = Self(1179797314);
+    #[doc = "[127:0] R:G:B:A 32:32:32:32 little endian"]
+    pub const ABGR32323232F: Self = Self(1178092097);
+    #[doc = "2x1 subsampled Cr:Cb plane"]
+    pub const NV20: Self = Self(808605262);
+    #[doc = "non-subsampled Cr:Cb plane"]
+    pub const NV30: Self = Self(808670798);
+    #[doc = "2x2 subsampled Cb (1) and Cr (2) planes 10 bits per channel"]
+    pub const S010: Self = Self(808530003);
+    #[doc = "2x1 subsampled Cb (1) and Cr (2) planes 10 bits per channel"]
+    pub const S210: Self = Self(808530515);
+    #[doc = "non-subsampled Cb (1) and Cr (2) planes 10 bits per channel"]
+    pub const S410: Self = Self(808531027);
+    #[doc = "2x2 subsampled Cb (1) and Cr (2) planes 12 bits per channel"]
+    pub const S012: Self = Self(842084435);
+    #[doc = "2x1 subsampled Cb (1) and Cr (2) planes 12 bits per channel"]
+    pub const S212: Self = Self(842084947);
+    #[doc = "non-subsampled Cb (1) and Cr (2) planes 12 bits per channel"]
+    pub const S412: Self = Self(842085459);
+    #[doc = "2x2 subsampled Cb (1) and Cr (2) planes 16 bits per channel"]
+    pub const S016: Self = Self(909193299);
+    #[doc = "2x1 subsampled Cb (1) and Cr (2) planes 16 bits per channel"]
+    pub const S216: Self = Self(909193811);
+    #[doc = "non-subsampled Cb (1) and Cr (2) planes 16 bits per channel"]
+    pub const S416: Self = Self(909194323);
+}
+impl ::std::convert::From<u32> for wl_shm_v2_format_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shm_v2_format_u32> for u32 {
+    fn from(value: wl_shm_v2_format_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "pixel formats\n\n\n        This describes the memory layout of an individual pixel.\n\n        All renderers should support argb8888 and xrgb8888 but any other\n        formats are optional and may not be supported by the particular\n        renderer in use.\n\n        The drm format codes match the macros defined in drm_fourcc.h, except\n        argb8888 and xrgb8888. The formats actually supported by the compositor\n        will be reported by the format event. See drm_fourcc.h for more detailed\n        format descriptions.\n\n        For all wl_shm formats and unless specified in another protocol\n        extension, pre-multiplied alpha is used for pixel values.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shm_v2_format_i32(i32);
+impl wl_shm_v2_format_i32 {
+    #[doc = "32-bit ARGB format, [31:0] A:R:G:B 8:8:8:8 little endian"]
+    pub const ARGB8888: Self = Self(0);
+    #[doc = "32-bit RGB format, [31:0] x:R:G:B 8:8:8:8 little endian"]
+    pub const XRGB8888: Self = Self(1);
+    #[doc = "8-bit color index format, [7:0] C"]
+    pub const C8: Self = Self(538982467);
+    #[doc = "8-bit RGB format, [7:0] R:G:B 3:3:2"]
+    pub const RGB332: Self = Self(943867730);
+    #[doc = "8-bit BGR format, [7:0] B:G:R 2:3:3"]
+    pub const BGR233: Self = Self(944916290);
+    #[doc = "16-bit xRGB format, [15:0] x:R:G:B 4:4:4:4 little endian"]
+    pub const XRGB4444: Self = Self(842093144);
+    #[doc = "16-bit xBGR format, [15:0] x:B:G:R 4:4:4:4 little endian"]
+    pub const XBGR4444: Self = Self(842089048);
+    #[doc = "16-bit RGBx format, [15:0] R:G:B:x 4:4:4:4 little endian"]
+    pub const RGBX4444: Self = Self(842094674);
+    #[doc = "16-bit BGRx format, [15:0] B:G:R:x 4:4:4:4 little endian"]
+    pub const BGRX4444: Self = Self(842094658);
+    #[doc = "16-bit ARGB format, [15:0] A:R:G:B 4:4:4:4 little endian"]
+    pub const ARGB4444: Self = Self(842093121);
+    #[doc = "16-bit ABGR format, [15:0] A:B:G:R 4:4:4:4 little endian"]
+    pub const ABGR4444: Self = Self(842089025);
+    #[doc = "16-bit RBGA format, [15:0] R:G:B:A 4:4:4:4 little endian"]
+    pub const RGBA4444: Self = Self(842088786);
+    #[doc = "16-bit BGRA format, [15:0] B:G:R:A 4:4:4:4 little endian"]
+    pub const BGRA4444: Self = Self(842088770);
+    #[doc = "16-bit xRGB format, [15:0] x:R:G:B 1:5:5:5 little endian"]
+    pub const XRGB1555: Self = Self(892424792);
+    #[doc = "16-bit xBGR 1555 format, [15:0] x:B:G:R 1:5:5:5 little endian"]
+    pub const XBGR1555: Self = Self(892420696);
+    #[doc = "16-bit RGBx 5551 format, [15:0] R:G:B:x 5:5:5:1 little endian"]
+    pub const RGBX5551: Self = Self(892426322);
+    #[doc = "16-bit BGRx 5551 format, [15:0] B:G:R:x 5:5:5:1 little endian"]
+    pub const BGRX5551: Self = Self(892426306);
+    #[doc = "16-bit ARGB 1555 format, [15:0] A:R:G:B 1:5:5:5 little endian"]
+    pub const ARGB1555: Self = Self(892424769);
+    #[doc = "16-bit ABGR 1555 format, [15:0] A:B:G:R 1:5:5:5 little endian"]
+    pub const ABGR1555: Self = Self(892420673);
+    #[doc = "16-bit RGBA 5551 format, [15:0] R:G:B:A 5:5:5:1 little endian"]
+    pub const RGBA5551: Self = Self(892420434);
+    #[doc = "16-bit BGRA 5551 format, [15:0] B:G:R:A 5:5:5:1 little endian"]
+    pub const BGRA5551: Self = Self(892420418);
+    #[doc = "16-bit RGB 565 format, [15:0] R:G:B 5:6:5 little endian"]
+    pub const RGB565: Self = Self(909199186);
+    #[doc = "16-bit BGR 565 format, [15:0] B:G:R 5:6:5 little endian"]
+    pub const BGR565: Self = Self(909199170);
+    #[doc = "24-bit RGB format, [23:0] R:G:B little endian"]
+    pub const RGB888: Self = Self(875710290);
+    #[doc = "24-bit BGR format, [23:0] B:G:R little endian"]
+    pub const BGR888: Self = Self(875710274);
+    #[doc = "32-bit xBGR format, [31:0] x:B:G:R 8:8:8:8 little endian"]
+    pub const XBGR8888: Self = Self(875709016);
+    #[doc = "32-bit RGBx format, [31:0] R:G:B:x 8:8:8:8 little endian"]
+    pub const RGBX8888: Self = Self(875714642);
+    #[doc = "32-bit BGRx format, [31:0] B:G:R:x 8:8:8:8 little endian"]
+    pub const BGRX8888: Self = Self(875714626);
+    #[doc = "32-bit ABGR format, [31:0] A:B:G:R 8:8:8:8 little endian"]
+    pub const ABGR8888: Self = Self(875708993);
+    #[doc = "32-bit RGBA format, [31:0] R:G:B:A 8:8:8:8 little endian"]
+    pub const RGBA8888: Self = Self(875708754);
+    #[doc = "32-bit BGRA format, [31:0] B:G:R:A 8:8:8:8 little endian"]
+    pub const BGRA8888: Self = Self(875708738);
+    #[doc = "32-bit xRGB format, [31:0] x:R:G:B 2:10:10:10 little endian"]
+    pub const XRGB2101010: Self = Self(808669784);
+    #[doc = "32-bit xBGR format, [31:0] x:B:G:R 2:10:10:10 little endian"]
+    pub const XBGR2101010: Self = Self(808665688);
+    #[doc = "32-bit RGBx format, [31:0] R:G:B:x 10:10:10:2 little endian"]
+    pub const RGBX1010102: Self = Self(808671314);
+    #[doc = "32-bit BGRx format, [31:0] B:G:R:x 10:10:10:2 little endian"]
+    pub const BGRX1010102: Self = Self(808671298);
+    #[doc = "32-bit ARGB format, [31:0] A:R:G:B 2:10:10:10 little endian"]
+    pub const ARGB2101010: Self = Self(808669761);
+    #[doc = "32-bit ABGR format, [31:0] A:B:G:R 2:10:10:10 little endian"]
+    pub const ABGR2101010: Self = Self(808665665);
+    #[doc = "32-bit RGBA format, [31:0] R:G:B:A 10:10:10:2 little endian"]
+    pub const RGBA1010102: Self = Self(808665426);
+    #[doc = "32-bit BGRA format, [31:0] B:G:R:A 10:10:10:2 little endian"]
+    pub const BGRA1010102: Self = Self(808665410);
+    #[doc = "packed YCbCr format, [31:0] Cr0:Y1:Cb0:Y0 8:8:8:8 little endian"]
+    pub const YUYV: Self = Self(1448695129);
+    #[doc = "packed YCbCr format, [31:0] Cb0:Y1:Cr0:Y0 8:8:8:8 little endian"]
+    pub const YVYU: Self = Self(1431918169);
+    #[doc = "packed YCbCr format, [31:0] Y1:Cr0:Y0:Cb0 8:8:8:8 little endian"]
+    pub const UYVY: Self = Self(1498831189);
+    #[doc = "packed YCbCr format, [31:0] Y1:Cb0:Y0:Cr0 8:8:8:8 little endian"]
+    pub const VYUY: Self = Self(1498765654);
+    #[doc = "packed AYCbCr format, [31:0] A:Y:Cb:Cr 8:8:8:8 little endian"]
+    pub const AYUV: Self = Self(1448433985);
+    #[doc = "2 plane YCbCr Cr:Cb format, 2x2 subsampled Cr:Cb plane"]
+    pub const NV12: Self = Self(842094158);
+    #[doc = "2 plane YCbCr Cb:Cr format, 2x2 subsampled Cb:Cr plane"]
+    pub const NV21: Self = Self(825382478);
+    #[doc = "2 plane YCbCr Cr:Cb format, 2x1 subsampled Cr:Cb plane"]
+    pub const NV16: Self = Self(909203022);
+    #[doc = "2 plane YCbCr Cb:Cr format, 2x1 subsampled Cb:Cr plane"]
+    pub const NV61: Self = Self(825644622);
+    #[doc = "3 plane YCbCr format, 4x4 subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV410: Self = Self(961959257);
+    #[doc = "3 plane YCbCr format, 4x4 subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU410: Self = Self(961893977);
+    #[doc = "3 plane YCbCr format, 4x1 subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV411: Self = Self(825316697);
+    #[doc = "3 plane YCbCr format, 4x1 subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU411: Self = Self(825316953);
+    #[doc = "3 plane YCbCr format, 2x2 subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV420: Self = Self(842093913);
+    #[doc = "3 plane YCbCr format, 2x2 subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU420: Self = Self(842094169);
+    #[doc = "3 plane YCbCr format, 2x1 subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV422: Self = Self(909202777);
+    #[doc = "3 plane YCbCr format, 2x1 subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU422: Self = Self(909203033);
+    #[doc = "3 plane YCbCr format, non-subsampled Cb (1) and Cr (2) planes"]
+    pub const YUV444: Self = Self(875713881);
+    #[doc = "3 plane YCbCr format, non-subsampled Cr (1) and Cb (2) planes"]
+    pub const YVU444: Self = Self(875714137);
+    #[doc = "[7:0] R"]
+    pub const R8: Self = Self(538982482);
+    #[doc = "[15:0] R little endian"]
+    pub const R16: Self = Self(540422482);
+    #[doc = "[15:0] R:G 8:8 little endian"]
+    pub const RG88: Self = Self(943212370);
+    #[doc = "[15:0] G:R 8:8 little endian"]
+    pub const GR88: Self = Self(943215175);
+    #[doc = "[31:0] R:G 16:16 little endian"]
+    pub const RG1616: Self = Self(842221394);
+    #[doc = "[31:0] G:R 16:16 little endian"]
+    pub const GR1616: Self = Self(842224199);
+    #[doc = "[63:0] x:R:G:B 16:16:16:16 little endian"]
+    pub const XRGB16161616F: Self = Self(1211388504);
+    #[doc = "[63:0] x:B:G:R 16:16:16:16 little endian"]
+    pub const XBGR16161616F: Self = Self(1211384408);
+    #[doc = "[63:0] A:R:G:B 16:16:16:16 little endian"]
+    pub const ARGB16161616F: Self = Self(1211388481);
+    #[doc = "[63:0] A:B:G:R 16:16:16:16 little endian"]
+    pub const ABGR16161616F: Self = Self(1211384385);
+    #[doc = "[31:0] X:Y:Cb:Cr 8:8:8:8 little endian"]
+    pub const XYUV8888: Self = Self(1448434008);
+    #[doc = "[23:0] Cr:Cb:Y 8:8:8 little endian"]
+    pub const VUY888: Self = Self(875713878);
+    #[doc = "Y followed by U then V, 10:10:10. Non-linear modifier only"]
+    pub const VUY101010: Self = Self(808670550);
+    #[doc = "[63:0] Cr0:0:Y1:0:Cb0:0:Y0:0 10:6:10:6:10:6:10:6 little endian per 2 Y pixels"]
+    pub const Y210: Self = Self(808530521);
+    #[doc = "[63:0] Cr0:0:Y1:0:Cb0:0:Y0:0 12:4:12:4:12:4:12:4 little endian per 2 Y pixels"]
+    pub const Y212: Self = Self(842084953);
+    #[doc = "[63:0] Cr0:Y1:Cb0:Y0 16:16:16:16 little endian per 2 Y pixels"]
+    pub const Y216: Self = Self(909193817);
+    #[doc = "[31:0] A:Cr:Y:Cb 2:10:10:10 little endian"]
+    pub const Y410: Self = Self(808531033);
+    #[doc = "[63:0] A:0:Cr:0:Y:0:Cb:0 12:4:12:4:12:4:12:4 little endian"]
+    pub const Y412: Self = Self(842085465);
+    #[doc = "[63:0] A:Cr:Y:Cb 16:16:16:16 little endian"]
+    pub const Y416: Self = Self(909194329);
+    #[doc = "[31:0] X:Cr:Y:Cb 2:10:10:10 little endian"]
+    pub const XVYU2101010: Self = Self(808670808);
+    #[doc = "[63:0] X:0:Cr:0:Y:0:Cb:0 12:4:12:4:12:4:12:4 little endian"]
+    pub const XVYU12_16161616: Self = Self(909334104);
+    #[doc = "[63:0] X:Cr:Y:Cb 16:16:16:16 little endian"]
+    pub const XVYU16161616: Self = Self(942954072);
+    #[doc = "[63:0]   A3:A2:Y3:0:Cr0:0:Y2:0:A1:A0:Y1:0:Cb0:0:Y0:0  1:1:8:2:8:2:8:2:1:1:8:2:8:2:8:2 little endian"]
+    pub const Y0L0: Self = Self(810299481);
+    #[doc = "[63:0]   X3:X2:Y3:0:Cr0:0:Y2:0:X1:X0:Y1:0:Cb0:0:Y0:0  1:1:8:2:8:2:8:2:1:1:8:2:8:2:8:2 little endian"]
+    pub const X0L0: Self = Self(810299480);
+    #[doc = "[63:0]   A3:A2:Y3:Cr0:Y2:A1:A0:Y1:Cb0:Y0  1:1:10:10:10:1:1:10:10:10 little endian"]
+    pub const Y0L2: Self = Self(843853913);
+    #[doc = "[63:0]   X3:X2:Y3:Cr0:Y2:X1:X0:Y1:Cb0:Y0  1:1:10:10:10:1:1:10:10:10 little endian"]
+    pub const X0L2: Self = Self(843853912);
+    pub const YUV420_8BIT: Self = Self(942691673);
+    pub const YUV420_10BIT: Self = Self(808539481);
+    pub const XRGB8888_A8: Self = Self(943805016);
+    pub const XBGR8888_A8: Self = Self(943800920);
+    pub const RGBX8888_A8: Self = Self(943806546);
+    pub const BGRX8888_A8: Self = Self(943806530);
+    pub const RGB888_A8: Self = Self(943798354);
+    pub const BGR888_A8: Self = Self(943798338);
+    pub const RGB565_A8: Self = Self(943797586);
+    pub const BGR565_A8: Self = Self(943797570);
+    #[doc = "non-subsampled Cr:Cb plane"]
+    pub const NV24: Self = Self(875714126);
+    #[doc = "non-subsampled Cb:Cr plane"]
+    pub const NV42: Self = Self(842290766);
+    #[doc = "2x1 subsampled Cr:Cb plane, 10 bit per channel"]
+    pub const P210: Self = Self(808530512);
+    #[doc = "2x2 subsampled Cr:Cb plane 10 bits per channel"]
+    pub const P010: Self = Self(808530000);
+    #[doc = "2x2 subsampled Cr:Cb plane 12 bits per channel"]
+    pub const P012: Self = Self(842084432);
+    #[doc = "2x2 subsampled Cr:Cb plane 16 bits per channel"]
+    pub const P016: Self = Self(909193296);
+    #[doc = "[63:0] A:x:B:x:G:x:R:x 10:6:10:6:10:6:10:6 little endian"]
+    pub const AXBXGXRX106106106106: Self = Self(808534593);
+    #[doc = "2x2 subsampled Cr:Cb plane"]
+    pub const NV15: Self = Self(892425806);
+    pub const Q410: Self = Self(808531025);
+    pub const Q401: Self = Self(825242705);
+    #[doc = "[63:0] x:R:G:B 16:16:16:16 little endian"]
+    pub const XRGB16161616: Self = Self(942953048);
+    #[doc = "[63:0] x:B:G:R 16:16:16:16 little endian"]
+    pub const XBGR16161616: Self = Self(942948952);
+    #[doc = "[63:0] A:R:G:B 16:16:16:16 little endian"]
+    pub const ARGB16161616: Self = Self(942953025);
+    #[doc = "[63:0] A:B:G:R 16:16:16:16 little endian"]
+    pub const ABGR16161616: Self = Self(942948929);
+    #[doc = "[7:0] C0:C1:C2:C3:C4:C5:C6:C7 1:1:1:1:1:1:1:1 eight pixels/byte"]
+    pub const C1: Self = Self(538980675);
+    #[doc = "[7:0] C0:C1:C2:C3 2:2:2:2 four pixels/byte"]
+    pub const C2: Self = Self(538980931);
+    #[doc = "[7:0] C0:C1 4:4 two pixels/byte"]
+    pub const C4: Self = Self(538981443);
+    #[doc = "[7:0] D0:D1:D2:D3:D4:D5:D6:D7 1:1:1:1:1:1:1:1 eight pixels/byte"]
+    pub const D1: Self = Self(538980676);
+    #[doc = "[7:0] D0:D1:D2:D3 2:2:2:2 four pixels/byte"]
+    pub const D2: Self = Self(538980932);
+    #[doc = "[7:0] D0:D1 4:4 two pixels/byte"]
+    pub const D4: Self = Self(538981444);
+    #[doc = "[7:0] D"]
+    pub const D8: Self = Self(538982468);
+    #[doc = "[7:0] R0:R1:R2:R3:R4:R5:R6:R7 1:1:1:1:1:1:1:1 eight pixels/byte"]
+    pub const R1: Self = Self(538980690);
+    #[doc = "[7:0] R0:R1:R2:R3 2:2:2:2 four pixels/byte"]
+    pub const R2: Self = Self(538980946);
+    #[doc = "[7:0] R0:R1 4:4 two pixels/byte"]
+    pub const R4: Self = Self(538981458);
+    #[doc = "[15:0] x:R 6:10 little endian"]
+    pub const R10: Self = Self(540029266);
+    #[doc = "[15:0] x:R 4:12 little endian"]
+    pub const R12: Self = Self(540160338);
+    #[doc = "[31:0] A:Cr:Cb:Y 8:8:8:8 little endian"]
+    pub const AVUY8888: Self = Self(1498764865);
+    #[doc = "[31:0] X:Cr:Cb:Y 8:8:8:8 little endian"]
+    pub const XVUY8888: Self = Self(1498764888);
+    #[doc = "2x2 subsampled Cr:Cb plane 10 bits per channel packed"]
+    pub const P030: Self = Self(808661072);
+    #[doc = "[47:0] R:G:B 16:16:16 little endian"]
+    pub const RGB161616: Self = Self(942950226);
+    #[doc = "[47:0] B:G:R 16:16:16 little endian"]
+    pub const BGR161616: Self = Self(942950210);
+    #[doc = "[15:0] R 16 little endian"]
+    pub const R16F: Self = Self(1210064978);
+    #[doc = "[31:0] G:R 16:16 little endian"]
+    pub const GR1616F: Self = Self(1210077767);
+    #[doc = "[47:0] B:G:R 16:16:16 little endian"]
+    pub const BGR161616F: Self = Self(1213351746);
+    #[doc = "[31:0] R 32 little endian"]
+    pub const R32F: Self = Self(1176510546);
+    #[doc = "[63:0] R:G 32:32 little endian"]
+    pub const GR3232F: Self = Self(1176523335);
+    #[doc = "[95:0] R:G:B 32:32:32 little endian"]
+    pub const BGR323232F: Self = Self(1179797314);
+    #[doc = "[127:0] R:G:B:A 32:32:32:32 little endian"]
+    pub const ABGR32323232F: Self = Self(1178092097);
+    #[doc = "2x1 subsampled Cr:Cb plane"]
+    pub const NV20: Self = Self(808605262);
+    #[doc = "non-subsampled Cr:Cb plane"]
+    pub const NV30: Self = Self(808670798);
+    #[doc = "2x2 subsampled Cb (1) and Cr (2) planes 10 bits per channel"]
+    pub const S010: Self = Self(808530003);
+    #[doc = "2x1 subsampled Cb (1) and Cr (2) planes 10 bits per channel"]
+    pub const S210: Self = Self(808530515);
+    #[doc = "non-subsampled Cb (1) and Cr (2) planes 10 bits per channel"]
+    pub const S410: Self = Self(808531027);
+    #[doc = "2x2 subsampled Cb (1) and Cr (2) planes 12 bits per channel"]
+    pub const S012: Self = Self(842084435);
+    #[doc = "2x1 subsampled Cb (1) and Cr (2) planes 12 bits per channel"]
+    pub const S212: Self = Self(842084947);
+    #[doc = "non-subsampled Cb (1) and Cr (2) planes 12 bits per channel"]
+    pub const S412: Self = Self(842085459);
+    #[doc = "2x2 subsampled Cb (1) and Cr (2) planes 16 bits per channel"]
+    pub const S016: Self = Self(909193299);
+    #[doc = "2x1 subsampled Cb (1) and Cr (2) planes 16 bits per channel"]
+    pub const S216: Self = Self(909193811);
+    #[doc = "non-subsampled Cb (1) and Cr (2) planes 16 bits per channel"]
+    pub const S416: Self = Self(909194323);
+}
+impl ::std::convert::From<i32> for wl_shm_v2_format_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shm_v2_format_i32> for i32 {
+    fn from(value: wl_shm_v2_format_i32) -> Self {
+        value.0
+    }
+}
 #[allow(unused)]
 pub trait wl_buffer_v1_event_handler: crate::protocol::EventHandler {
     fn handle_release(
@@ -1691,6 +2363,52 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_data_offer_v4_event_action_arg
     }
 }
 #[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_data_offer_v4_error_u32(u32);
+impl wl_data_offer_v4_error_u32 {
+    #[doc = "finish request was called untimely"]
+    pub const INVALID_FINISH: Self = Self(0);
+    #[doc = "action mask contains invalid values"]
+    pub const INVALID_ACTION_MASK: Self = Self(1);
+    #[doc = "action argument has an invalid value"]
+    pub const INVALID_ACTION: Self = Self(2);
+    #[doc = "offer doesn't accept this request"]
+    pub const INVALID_OFFER: Self = Self(3);
+}
+impl ::std::convert::From<u32> for wl_data_offer_v4_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_data_offer_v4_error_u32> for u32 {
+    fn from(value: wl_data_offer_v4_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_data_offer_v4_error_i32(i32);
+impl wl_data_offer_v4_error_i32 {
+    #[doc = "finish request was called untimely"]
+    pub const INVALID_FINISH: Self = Self(0);
+    #[doc = "action mask contains invalid values"]
+    pub const INVALID_ACTION_MASK: Self = Self(1);
+    #[doc = "action argument has an invalid value"]
+    pub const INVALID_ACTION: Self = Self(2);
+    #[doc = "offer doesn't accept this request"]
+    pub const INVALID_OFFER: Self = Self(3);
+}
+impl ::std::convert::From<i32> for wl_data_offer_v4_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_data_offer_v4_error_i32> for i32 {
+    fn from(value: wl_data_offer_v4_error_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
 pub trait wl_data_source_v4_event_handler: crate::protocol::EventHandler {
     fn handle_target(
         &self,
@@ -2178,6 +2896,44 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_data_source_v4_event_action_ar
     ) -> Result<Self, Self::Error> {
         let (__object_id, __structure) = __value;
         __structure.try_into_packet(__object_id)
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_data_source_v4_error_u32(u32);
+impl wl_data_source_v4_error_u32 {
+    #[doc = "action mask contains invalid values"]
+    pub const INVALID_ACTION_MASK: Self = Self(0);
+    #[doc = "source doesn't accept this request"]
+    pub const INVALID_SOURCE: Self = Self(1);
+}
+impl ::std::convert::From<u32> for wl_data_source_v4_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_data_source_v4_error_u32> for u32 {
+    fn from(value: wl_data_source_v4_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_data_source_v4_error_i32(i32);
+impl wl_data_source_v4_error_i32 {
+    #[doc = "action mask contains invalid values"]
+    pub const INVALID_ACTION_MASK: Self = Self(0);
+    #[doc = "source doesn't accept this request"]
+    pub const INVALID_SOURCE: Self = Self(1);
+}
+impl ::std::convert::From<i32> for wl_data_source_v4_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_data_source_v4_error_i32> for i32 {
+    fn from(value: wl_data_source_v4_error_i32) -> Self {
+        value.0
     }
 }
 #[allow(unused)]
@@ -2739,6 +3495,44 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_data_device_v4_event_selection
     }
 }
 #[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_data_device_v4_error_u32(u32);
+impl wl_data_device_v4_error_u32 {
+    #[doc = "given wl_surface has another role"]
+    pub const ROLE: Self = Self(0);
+    #[doc = "source has already been used"]
+    pub const USED_SOURCE: Self = Self(1);
+}
+impl ::std::convert::From<u32> for wl_data_device_v4_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_data_device_v4_error_u32> for u32 {
+    fn from(value: wl_data_device_v4_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_data_device_v4_error_i32(i32);
+impl wl_data_device_v4_error_i32 {
+    #[doc = "given wl_surface has another role"]
+    pub const ROLE: Self = Self(0);
+    #[doc = "source has already been used"]
+    pub const USED_SOURCE: Self = Self(1);
+}
+impl ::std::convert::From<i32> for wl_data_device_v4_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_data_device_v4_error_i32> for i32 {
+    fn from(value: wl_data_device_v4_error_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
 pub struct wl_data_device_manager_v4_request_proxy {
     object_id: crate::ObjectId,
     connection: crate::WeakConnection,
@@ -2924,6 +3718,54 @@ impl
         __structure.try_into_packet(__object_id)
     }
 }
+#[doc = "drag and drop actions\n\n\n        This is a bitmask of the available/preferred actions in a\n        drag-and-drop operation.\n\n        In the compositor, the selected action is a result of matching the\n        actions offered by the source and destination sides.  \"action\" events\n        with a \"none\" action will be sent to both source and destination if\n        there is no match. All further checks will effectively happen on\n        (source actions ∩ destination actions).\n\n        In addition, compositors may also pick different actions in\n        reaction to key modifiers being pressed. One common design that\n        is used in major toolkits (and the behavior recommended for\n        compositors) is:\n\n        - If no modifiers are pressed, the first match (in bit order)\n          will be used.\n        - Pressing Shift selects \"move\", if enabled in the mask.\n        - Pressing Control selects \"copy\", if enabled in the mask.\n\n        Behavior beyond that is considered implementation-dependent.\n        Compositors may for example bind other modifiers (like Alt/Meta)\n        or drags initiated with other buttons than BTN_LEFT to specific\n        actions (e.g. \"ask\").\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_data_device_manager_v4_dnd_action_u32(u32);
+impl wl_data_device_manager_v4_dnd_action_u32 {
+    #[doc = "no action"]
+    pub const NONE: Self = Self(0);
+    #[doc = "copy action"]
+    pub const COPY: Self = Self(1);
+    #[doc = "move action"]
+    pub const MOVE: Self = Self(2);
+    #[doc = "ask action"]
+    pub const ASK: Self = Self(4);
+}
+impl ::std::convert::From<u32> for wl_data_device_manager_v4_dnd_action_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_data_device_manager_v4_dnd_action_u32> for u32 {
+    fn from(value: wl_data_device_manager_v4_dnd_action_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "drag and drop actions\n\n\n        This is a bitmask of the available/preferred actions in a\n        drag-and-drop operation.\n\n        In the compositor, the selected action is a result of matching the\n        actions offered by the source and destination sides.  \"action\" events\n        with a \"none\" action will be sent to both source and destination if\n        there is no match. All further checks will effectively happen on\n        (source actions ∩ destination actions).\n\n        In addition, compositors may also pick different actions in\n        reaction to key modifiers being pressed. One common design that\n        is used in major toolkits (and the behavior recommended for\n        compositors) is:\n\n        - If no modifiers are pressed, the first match (in bit order)\n          will be used.\n        - Pressing Shift selects \"move\", if enabled in the mask.\n        - Pressing Control selects \"copy\", if enabled in the mask.\n\n        Behavior beyond that is considered implementation-dependent.\n        Compositors may for example bind other modifiers (like Alt/Meta)\n        or drags initiated with other buttons than BTN_LEFT to specific\n        actions (e.g. \"ask\").\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_data_device_manager_v4_dnd_action_i32(i32);
+impl wl_data_device_manager_v4_dnd_action_i32 {
+    #[doc = "no action"]
+    pub const NONE: Self = Self(0);
+    #[doc = "copy action"]
+    pub const COPY: Self = Self(1);
+    #[doc = "move action"]
+    pub const MOVE: Self = Self(2);
+    #[doc = "ask action"]
+    pub const ASK: Self = Self(4);
+}
+impl ::std::convert::From<i32> for wl_data_device_manager_v4_dnd_action_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_data_device_manager_v4_dnd_action_i32> for i32 {
+    fn from(value: wl_data_device_manager_v4_dnd_action_i32) -> Self {
+        value.0
+    }
+}
 #[allow(unused)]
 pub struct wl_shell_v1_request_proxy {
     object_id: crate::ObjectId,
@@ -2992,6 +3834,40 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_shell_v1_request_get_shell_sur
     ) -> Result<Self, Self::Error> {
         let (__object_id, __structure) = __value;
         __structure.try_into_packet(__object_id)
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shell_v1_error_u32(u32);
+impl wl_shell_v1_error_u32 {
+    #[doc = "given wl_surface has another role"]
+    pub const ROLE: Self = Self(0);
+}
+impl ::std::convert::From<u32> for wl_shell_v1_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shell_v1_error_u32> for u32 {
+    fn from(value: wl_shell_v1_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shell_v1_error_i32(i32);
+impl wl_shell_v1_error_i32 {
+    #[doc = "given wl_surface has another role"]
+    pub const ROLE: Self = Self(0);
+}
+impl ::std::convert::From<i32> for wl_shell_v1_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shell_v1_error_i32> for i32 {
+    fn from(value: wl_shell_v1_error_i32) -> Self {
+        value.0
     }
 }
 #[allow(unused)]
@@ -3804,6 +4680,158 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_shell_surface_v1_event_popup_d
     ) -> Result<Self, Self::Error> {
         let (__object_id, __structure) = __value;
         __structure.try_into_packet(__object_id)
+    }
+}
+#[doc = "edge values for resizing\n\n\n        These values are used to indicate which edge of a surface\n        is being dragged in a resize operation. The server may\n        use this information to adapt its behavior, e.g. choose\n        an appropriate cursor image.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shell_surface_v1_resize_u32(u32);
+impl wl_shell_surface_v1_resize_u32 {
+    #[doc = "no edge"]
+    pub const NONE: Self = Self(0);
+    #[doc = "top edge"]
+    pub const TOP: Self = Self(1);
+    #[doc = "bottom edge"]
+    pub const BOTTOM: Self = Self(2);
+    #[doc = "left edge"]
+    pub const LEFT: Self = Self(4);
+    #[doc = "top and left edges"]
+    pub const TOP_LEFT: Self = Self(5);
+    #[doc = "bottom and left edges"]
+    pub const BOTTOM_LEFT: Self = Self(6);
+    #[doc = "right edge"]
+    pub const RIGHT: Self = Self(8);
+    #[doc = "top and right edges"]
+    pub const TOP_RIGHT: Self = Self(9);
+    #[doc = "bottom and right edges"]
+    pub const BOTTOM_RIGHT: Self = Self(10);
+}
+impl ::std::convert::From<u32> for wl_shell_surface_v1_resize_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shell_surface_v1_resize_u32> for u32 {
+    fn from(value: wl_shell_surface_v1_resize_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "edge values for resizing\n\n\n        These values are used to indicate which edge of a surface\n        is being dragged in a resize operation. The server may\n        use this information to adapt its behavior, e.g. choose\n        an appropriate cursor image.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shell_surface_v1_resize_i32(i32);
+impl wl_shell_surface_v1_resize_i32 {
+    #[doc = "no edge"]
+    pub const NONE: Self = Self(0);
+    #[doc = "top edge"]
+    pub const TOP: Self = Self(1);
+    #[doc = "bottom edge"]
+    pub const BOTTOM: Self = Self(2);
+    #[doc = "left edge"]
+    pub const LEFT: Self = Self(4);
+    #[doc = "top and left edges"]
+    pub const TOP_LEFT: Self = Self(5);
+    #[doc = "bottom and left edges"]
+    pub const BOTTOM_LEFT: Self = Self(6);
+    #[doc = "right edge"]
+    pub const RIGHT: Self = Self(8);
+    #[doc = "top and right edges"]
+    pub const TOP_RIGHT: Self = Self(9);
+    #[doc = "bottom and right edges"]
+    pub const BOTTOM_RIGHT: Self = Self(10);
+}
+impl ::std::convert::From<i32> for wl_shell_surface_v1_resize_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shell_surface_v1_resize_i32> for i32 {
+    fn from(value: wl_shell_surface_v1_resize_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "details of transient behaviour\n\n\n        These flags specify details of the expected behaviour\n        of transient surfaces. Used in the set_transient request.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shell_surface_v1_transient_u32(u32);
+impl wl_shell_surface_v1_transient_u32 {
+    #[doc = "do not set keyboard focus"]
+    pub const INACTIVE: Self = Self(1);
+}
+impl ::std::convert::From<u32> for wl_shell_surface_v1_transient_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shell_surface_v1_transient_u32> for u32 {
+    fn from(value: wl_shell_surface_v1_transient_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "details of transient behaviour\n\n\n        These flags specify details of the expected behaviour\n        of transient surfaces. Used in the set_transient request.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shell_surface_v1_transient_i32(i32);
+impl wl_shell_surface_v1_transient_i32 {
+    #[doc = "do not set keyboard focus"]
+    pub const INACTIVE: Self = Self(1);
+}
+impl ::std::convert::From<i32> for wl_shell_surface_v1_transient_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shell_surface_v1_transient_i32> for i32 {
+    fn from(value: wl_shell_surface_v1_transient_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "different method to set the surface fullscreen\n\n\n        Hints to indicate to the compositor how to deal with a conflict\n        between the dimensions of the surface and the dimensions of the\n        output. The compositor is free to ignore this parameter.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shell_surface_v1_fullscreen_method_u32(u32);
+impl wl_shell_surface_v1_fullscreen_method_u32 {
+    #[doc = "no preference, apply default policy"]
+    pub const DEFAULT: Self = Self(0);
+    #[doc = "scale, preserve the surface's aspect ratio and center on output"]
+    pub const SCALE: Self = Self(1);
+    #[doc = "switch output mode to the smallest mode that can fit the surface, add black borders to compensate size mismatch"]
+    pub const DRIVER: Self = Self(2);
+    #[doc = "no upscaling, center on output and add black borders to compensate size mismatch"]
+    pub const FILL: Self = Self(3);
+}
+impl ::std::convert::From<u32> for wl_shell_surface_v1_fullscreen_method_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shell_surface_v1_fullscreen_method_u32> for u32 {
+    fn from(value: wl_shell_surface_v1_fullscreen_method_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "different method to set the surface fullscreen\n\n\n        Hints to indicate to the compositor how to deal with a conflict\n        between the dimensions of the surface and the dimensions of the\n        output. The compositor is free to ignore this parameter.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_shell_surface_v1_fullscreen_method_i32(i32);
+impl wl_shell_surface_v1_fullscreen_method_i32 {
+    #[doc = "no preference, apply default policy"]
+    pub const DEFAULT: Self = Self(0);
+    #[doc = "scale, preserve the surface's aspect ratio and center on output"]
+    pub const SCALE: Self = Self(1);
+    #[doc = "switch output mode to the smallest mode that can fit the surface, add black borders to compensate size mismatch"]
+    pub const DRIVER: Self = Self(2);
+    #[doc = "no upscaling, center on output and add black borders to compensate size mismatch"]
+    pub const FILL: Self = Self(3);
+}
+impl ::std::convert::From<i32> for wl_shell_surface_v1_fullscreen_method_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_shell_surface_v1_fullscreen_method_i32> for i32 {
+    fn from(value: wl_shell_surface_v1_fullscreen_method_i32) -> Self {
+        value.0
     }
 }
 #[allow(unused)]
@@ -4718,6 +5746,62 @@ impl
         __structure.try_into_packet(__object_id)
     }
 }
+#[doc = "wl_surface error values\n\n\n        These errors can be emitted in response to wl_surface requests.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_surface_v7_error_u32(u32);
+impl wl_surface_v7_error_u32 {
+    #[doc = "buffer scale value is invalid"]
+    pub const INVALID_SCALE: Self = Self(0);
+    #[doc = "buffer transform value is invalid"]
+    pub const INVALID_TRANSFORM: Self = Self(1);
+    #[doc = "buffer size is invalid"]
+    pub const INVALID_SIZE: Self = Self(2);
+    #[doc = "buffer offset is invalid"]
+    pub const INVALID_OFFSET: Self = Self(3);
+    #[doc = "surface was destroyed before its role object"]
+    pub const DEFUNCT_ROLE_OBJECT: Self = Self(4);
+    #[doc = "no buffer was attached"]
+    pub const NO_BUFFER: Self = Self(5);
+}
+impl ::std::convert::From<u32> for wl_surface_v7_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_surface_v7_error_u32> for u32 {
+    fn from(value: wl_surface_v7_error_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "wl_surface error values\n\n\n        These errors can be emitted in response to wl_surface requests.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_surface_v7_error_i32(i32);
+impl wl_surface_v7_error_i32 {
+    #[doc = "buffer scale value is invalid"]
+    pub const INVALID_SCALE: Self = Self(0);
+    #[doc = "buffer transform value is invalid"]
+    pub const INVALID_TRANSFORM: Self = Self(1);
+    #[doc = "buffer size is invalid"]
+    pub const INVALID_SIZE: Self = Self(2);
+    #[doc = "buffer offset is invalid"]
+    pub const INVALID_OFFSET: Self = Self(3);
+    #[doc = "surface was destroyed before its role object"]
+    pub const DEFUNCT_ROLE_OBJECT: Self = Self(4);
+    #[doc = "no buffer was attached"]
+    pub const NO_BUFFER: Self = Self(5);
+}
+impl ::std::convert::From<i32> for wl_surface_v7_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_surface_v7_error_i32> for i32 {
+    fn from(value: wl_surface_v7_error_i32) -> Self {
+        value.0
+    }
+}
 #[allow(unused)]
 pub trait wl_seat_v10_event_handler: crate::protocol::EventHandler {
     fn handle_capabilities(
@@ -5051,6 +6135,86 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_seat_v10_event_name_args)> for
     ) -> Result<Self, Self::Error> {
         let (__object_id, __structure) = __value;
         __structure.try_into_packet(__object_id)
+    }
+}
+#[doc = "seat capability bitmask\n\n\n        This is a bitmask of capabilities this seat has; if a member is\n        set, then it is present on the seat.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_seat_v10_capability_u32(u32);
+impl wl_seat_v10_capability_u32 {
+    #[doc = "the seat has pointer devices"]
+    pub const POINTER: Self = Self(1);
+    #[doc = "the seat has one or more keyboards"]
+    pub const KEYBOARD: Self = Self(2);
+    #[doc = "the seat has touch devices"]
+    pub const TOUCH: Self = Self(4);
+}
+impl ::std::convert::From<u32> for wl_seat_v10_capability_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_seat_v10_capability_u32> for u32 {
+    fn from(value: wl_seat_v10_capability_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "seat capability bitmask\n\n\n        This is a bitmask of capabilities this seat has; if a member is\n        set, then it is present on the seat.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_seat_v10_capability_i32(i32);
+impl wl_seat_v10_capability_i32 {
+    #[doc = "the seat has pointer devices"]
+    pub const POINTER: Self = Self(1);
+    #[doc = "the seat has one or more keyboards"]
+    pub const KEYBOARD: Self = Self(2);
+    #[doc = "the seat has touch devices"]
+    pub const TOUCH: Self = Self(4);
+}
+impl ::std::convert::From<i32> for wl_seat_v10_capability_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_seat_v10_capability_i32> for i32 {
+    fn from(value: wl_seat_v10_capability_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "wl_seat error values\n\n\n        These errors can be emitted in response to wl_seat requests.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_seat_v10_error_u32(u32);
+impl wl_seat_v10_error_u32 {
+    #[doc = "get_pointer, get_keyboard or get_touch called on seat without the matching capability"]
+    pub const MISSING_CAPABILITY: Self = Self(0);
+}
+impl ::std::convert::From<u32> for wl_seat_v10_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_seat_v10_error_u32> for u32 {
+    fn from(value: wl_seat_v10_error_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "wl_seat error values\n\n\n        These errors can be emitted in response to wl_seat requests.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_seat_v10_error_i32(i32);
+impl wl_seat_v10_error_i32 {
+    #[doc = "get_pointer, get_keyboard or get_touch called on seat without the matching capability"]
+    pub const MISSING_CAPABILITY: Self = Self(0);
+}
+impl ::std::convert::From<i32> for wl_seat_v10_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_seat_v10_error_i32> for i32 {
+    fn from(value: wl_seat_v10_error_i32) -> Self {
+        value.0
     }
 }
 #[allow(unused)]
@@ -5883,6 +7047,208 @@ impl
     }
 }
 #[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_error_u32(u32);
+impl wl_pointer_v10_error_u32 {
+    #[doc = "given wl_surface has another role"]
+    pub const ROLE: Self = Self(0);
+}
+impl ::std::convert::From<u32> for wl_pointer_v10_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_error_u32> for u32 {
+    fn from(value: wl_pointer_v10_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_error_i32(i32);
+impl wl_pointer_v10_error_i32 {
+    #[doc = "given wl_surface has another role"]
+    pub const ROLE: Self = Self(0);
+}
+impl ::std::convert::From<i32> for wl_pointer_v10_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_error_i32> for i32 {
+    fn from(value: wl_pointer_v10_error_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "physical button state\n\n\n        Describes the physical state of a button that produced the button\n        event.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_button_state_u32(u32);
+impl wl_pointer_v10_button_state_u32 {
+    #[doc = "the button is not pressed"]
+    pub const RELEASED: Self = Self(0);
+    #[doc = "the button is pressed"]
+    pub const PRESSED: Self = Self(1);
+}
+impl ::std::convert::From<u32> for wl_pointer_v10_button_state_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_button_state_u32> for u32 {
+    fn from(value: wl_pointer_v10_button_state_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "physical button state\n\n\n        Describes the physical state of a button that produced the button\n        event.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_button_state_i32(i32);
+impl wl_pointer_v10_button_state_i32 {
+    #[doc = "the button is not pressed"]
+    pub const RELEASED: Self = Self(0);
+    #[doc = "the button is pressed"]
+    pub const PRESSED: Self = Self(1);
+}
+impl ::std::convert::From<i32> for wl_pointer_v10_button_state_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_button_state_i32> for i32 {
+    fn from(value: wl_pointer_v10_button_state_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "axis types\n\n\n        Describes the axis types of scroll events.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_axis_u32(u32);
+impl wl_pointer_v10_axis_u32 {
+    #[doc = "vertical axis"]
+    pub const VERTICAL_SCROLL: Self = Self(0);
+    #[doc = "horizontal axis"]
+    pub const HORIZONTAL_SCROLL: Self = Self(1);
+}
+impl ::std::convert::From<u32> for wl_pointer_v10_axis_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_axis_u32> for u32 {
+    fn from(value: wl_pointer_v10_axis_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "axis types\n\n\n        Describes the axis types of scroll events.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_axis_i32(i32);
+impl wl_pointer_v10_axis_i32 {
+    #[doc = "vertical axis"]
+    pub const VERTICAL_SCROLL: Self = Self(0);
+    #[doc = "horizontal axis"]
+    pub const HORIZONTAL_SCROLL: Self = Self(1);
+}
+impl ::std::convert::From<i32> for wl_pointer_v10_axis_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_axis_i32> for i32 {
+    fn from(value: wl_pointer_v10_axis_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "axis source types\n\n\n        Describes the source types for axis events. This indicates to the\n        client how an axis event was physically generated; a client may\n        adjust the user interface accordingly. For example, scroll events\n        from a \"finger\" source may be in a smooth coordinate space with\n        kinetic scrolling whereas a \"wheel\" source may be in discrete steps\n        of a number of lines.\n\n        The \"continuous\" axis source is a device generating events in a\n        continuous coordinate space, but using something other than a\n        finger. One example for this source is button-based scrolling where\n        the vertical motion of a device is converted to scroll events while\n        a button is held down.\n\n        The \"wheel tilt\" axis source indicates that the actual device is a\n        wheel but the scroll event is not caused by a rotation but a\n        (usually sideways) tilt of the wheel.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_axis_source_u32(u32);
+impl wl_pointer_v10_axis_source_u32 {
+    #[doc = "a physical wheel rotation"]
+    pub const WHEEL: Self = Self(0);
+    #[doc = "finger on a touch surface"]
+    pub const FINGER: Self = Self(1);
+    #[doc = "continuous coordinate space"]
+    pub const CONTINUOUS: Self = Self(2);
+    #[doc = "a physical wheel tilt"]
+    pub const WHEEL_TILT: Self = Self(3);
+}
+impl ::std::convert::From<u32> for wl_pointer_v10_axis_source_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_axis_source_u32> for u32 {
+    fn from(value: wl_pointer_v10_axis_source_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "axis source types\n\n\n        Describes the source types for axis events. This indicates to the\n        client how an axis event was physically generated; a client may\n        adjust the user interface accordingly. For example, scroll events\n        from a \"finger\" source may be in a smooth coordinate space with\n        kinetic scrolling whereas a \"wheel\" source may be in discrete steps\n        of a number of lines.\n\n        The \"continuous\" axis source is a device generating events in a\n        continuous coordinate space, but using something other than a\n        finger. One example for this source is button-based scrolling where\n        the vertical motion of a device is converted to scroll events while\n        a button is held down.\n\n        The \"wheel tilt\" axis source indicates that the actual device is a\n        wheel but the scroll event is not caused by a rotation but a\n        (usually sideways) tilt of the wheel.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_axis_source_i32(i32);
+impl wl_pointer_v10_axis_source_i32 {
+    #[doc = "a physical wheel rotation"]
+    pub const WHEEL: Self = Self(0);
+    #[doc = "finger on a touch surface"]
+    pub const FINGER: Self = Self(1);
+    #[doc = "continuous coordinate space"]
+    pub const CONTINUOUS: Self = Self(2);
+    #[doc = "a physical wheel tilt"]
+    pub const WHEEL_TILT: Self = Self(3);
+}
+impl ::std::convert::From<i32> for wl_pointer_v10_axis_source_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_axis_source_i32> for i32 {
+    fn from(value: wl_pointer_v10_axis_source_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "axis relative direction\n\n\n        This specifies the direction of the physical motion that caused a\n        wl_pointer.axis event, relative to the wl_pointer.axis direction.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_axis_relative_direction_u32(u32);
+impl wl_pointer_v10_axis_relative_direction_u32 {
+    #[doc = "physical motion matches axis direction"]
+    pub const IDENTICAL: Self = Self(0);
+    #[doc = "physical motion is the inverse of the axis direction"]
+    pub const INVERTED: Self = Self(1);
+}
+impl ::std::convert::From<u32> for wl_pointer_v10_axis_relative_direction_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_axis_relative_direction_u32> for u32 {
+    fn from(value: wl_pointer_v10_axis_relative_direction_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "axis relative direction\n\n\n        This specifies the direction of the physical motion that caused a\n        wl_pointer.axis event, relative to the wl_pointer.axis direction.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_pointer_v10_axis_relative_direction_i32(i32);
+impl wl_pointer_v10_axis_relative_direction_i32 {
+    #[doc = "physical motion matches axis direction"]
+    pub const IDENTICAL: Self = Self(0);
+    #[doc = "physical motion is the inverse of the axis direction"]
+    pub const INVERTED: Self = Self(1);
+}
+impl ::std::convert::From<i32> for wl_pointer_v10_axis_relative_direction_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_pointer_v10_axis_relative_direction_i32> for i32 {
+    fn from(value: wl_pointer_v10_axis_relative_direction_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
 pub trait wl_keyboard_v10_event_handler: crate::protocol::EventHandler {
     fn handle_keymap(
         &self,
@@ -6372,6 +7738,90 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_keyboard_v10_event_repeat_info
     ) -> Result<Self, Self::Error> {
         let (__object_id, __structure) = __value;
         __structure.try_into_packet(__object_id)
+    }
+}
+#[doc = "keyboard mapping format\n\n\n        This specifies the format of the keymap provided to the\n        client with the wl_keyboard.keymap event.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_keyboard_v10_keymap_format_u32(u32);
+impl wl_keyboard_v10_keymap_format_u32 {
+    #[doc = "no keymap; client must understand how to interpret the raw keycode"]
+    pub const NO_KEYMAP: Self = Self(0);
+    #[doc = "libxkbcommon compatible, null-terminated string; to determine the xkb keycode, clients must add 8 to the key event keycode"]
+    pub const XKB_V1: Self = Self(1);
+}
+impl ::std::convert::From<u32> for wl_keyboard_v10_keymap_format_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_keyboard_v10_keymap_format_u32> for u32 {
+    fn from(value: wl_keyboard_v10_keymap_format_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "keyboard mapping format\n\n\n        This specifies the format of the keymap provided to the\n        client with the wl_keyboard.keymap event.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_keyboard_v10_keymap_format_i32(i32);
+impl wl_keyboard_v10_keymap_format_i32 {
+    #[doc = "no keymap; client must understand how to interpret the raw keycode"]
+    pub const NO_KEYMAP: Self = Self(0);
+    #[doc = "libxkbcommon compatible, null-terminated string; to determine the xkb keycode, clients must add 8 to the key event keycode"]
+    pub const XKB_V1: Self = Self(1);
+}
+impl ::std::convert::From<i32> for wl_keyboard_v10_keymap_format_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_keyboard_v10_keymap_format_i32> for i32 {
+    fn from(value: wl_keyboard_v10_keymap_format_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "physical key state\n\n\n        Describes the physical state of a key that produced the key event.\n\n        Since version 10, the key can be in a \"repeated\" pseudo-state which\n        means the same as \"pressed\", but is used to signal repetition in the\n        key event.\n\n        The key may only enter the repeated state after entering the pressed\n        state and before entering the released state. This event may be\n        generated multiple times while the key is down.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_keyboard_v10_key_state_u32(u32);
+impl wl_keyboard_v10_key_state_u32 {
+    #[doc = "key is not pressed"]
+    pub const RELEASED: Self = Self(0);
+    #[doc = "key is pressed"]
+    pub const PRESSED: Self = Self(1);
+    #[doc = "key was repeated"]
+    pub const REPEATED: Self = Self(2);
+}
+impl ::std::convert::From<u32> for wl_keyboard_v10_key_state_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_keyboard_v10_key_state_u32> for u32 {
+    fn from(value: wl_keyboard_v10_key_state_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "physical key state\n\n\n        Describes the physical state of a key that produced the key event.\n\n        Since version 10, the key can be in a \"repeated\" pseudo-state which\n        means the same as \"pressed\", but is used to signal repetition in the\n        key event.\n\n        The key may only enter the repeated state after entering the pressed\n        state and before entering the released state. This event may be\n        generated multiple times while the key is down.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_keyboard_v10_key_state_i32(i32);
+impl wl_keyboard_v10_key_state_i32 {
+    #[doc = "key is not pressed"]
+    pub const RELEASED: Self = Self(0);
+    #[doc = "key is pressed"]
+    pub const PRESSED: Self = Self(1);
+    #[doc = "key was repeated"]
+    pub const REPEATED: Self = Self(2);
+}
+impl ::std::convert::From<i32> for wl_keyboard_v10_key_state_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_keyboard_v10_key_state_i32> for i32 {
+    fn from(value: wl_keyboard_v10_key_state_i32) -> Self {
+        value.0
     }
 }
 #[allow(unused)]
@@ -7343,6 +8793,166 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_output_v4_event_description_ar
         __structure.try_into_packet(__object_id)
     }
 }
+#[doc = "subpixel geometry information\n\n\n        This enumeration describes how the physical\n        pixels on an output are laid out.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_output_v4_subpixel_u32(u32);
+impl wl_output_v4_subpixel_u32 {
+    #[doc = "unknown geometry"]
+    pub const UNKNOWN: Self = Self(0);
+    #[doc = "no geometry"]
+    pub const NONE: Self = Self(1);
+    #[doc = "horizontal RGB"]
+    pub const HORIZONTAL_RGB: Self = Self(2);
+    #[doc = "horizontal BGR"]
+    pub const HORIZONTAL_BGR: Self = Self(3);
+    #[doc = "vertical RGB"]
+    pub const VERTICAL_RGB: Self = Self(4);
+    #[doc = "vertical BGR"]
+    pub const VERTICAL_BGR: Self = Self(5);
+}
+impl ::std::convert::From<u32> for wl_output_v4_subpixel_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_output_v4_subpixel_u32> for u32 {
+    fn from(value: wl_output_v4_subpixel_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "subpixel geometry information\n\n\n        This enumeration describes how the physical\n        pixels on an output are laid out.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_output_v4_subpixel_i32(i32);
+impl wl_output_v4_subpixel_i32 {
+    #[doc = "unknown geometry"]
+    pub const UNKNOWN: Self = Self(0);
+    #[doc = "no geometry"]
+    pub const NONE: Self = Self(1);
+    #[doc = "horizontal RGB"]
+    pub const HORIZONTAL_RGB: Self = Self(2);
+    #[doc = "horizontal BGR"]
+    pub const HORIZONTAL_BGR: Self = Self(3);
+    #[doc = "vertical RGB"]
+    pub const VERTICAL_RGB: Self = Self(4);
+    #[doc = "vertical BGR"]
+    pub const VERTICAL_BGR: Self = Self(5);
+}
+impl ::std::convert::From<i32> for wl_output_v4_subpixel_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_output_v4_subpixel_i32> for i32 {
+    fn from(value: wl_output_v4_subpixel_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "transformation applied to buffer contents\n\n\n        This describes transformations that clients and compositors apply to\n        buffer contents.\n\n        The flipped values correspond to an initial flip around a\n        vertical axis followed by rotation.\n\n        The purpose is mainly to allow clients to render accordingly and\n        tell the compositor, so that for fullscreen surfaces, the\n        compositor will still be able to scan out directly from client\n        surfaces.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_output_v4_transform_u32(u32);
+impl wl_output_v4_transform_u32 {
+    #[doc = "no transform"]
+    pub const NORMAL: Self = Self(0);
+    #[doc = "90 degrees counter-clockwise"]
+    pub const VARIANT_90: Self = Self(1);
+    #[doc = "180 degrees counter-clockwise"]
+    pub const VARIANT_180: Self = Self(2);
+    #[doc = "270 degrees counter-clockwise"]
+    pub const VARIANT_270: Self = Self(3);
+    #[doc = "180 degree flip around a vertical axis"]
+    pub const FLIPPED: Self = Self(4);
+    #[doc = "flip and rotate 90 degrees counter-clockwise"]
+    pub const FLIPPED_90: Self = Self(5);
+    #[doc = "flip and rotate 180 degrees counter-clockwise"]
+    pub const FLIPPED_180: Self = Self(6);
+    #[doc = "flip and rotate 270 degrees counter-clockwise"]
+    pub const FLIPPED_270: Self = Self(7);
+}
+impl ::std::convert::From<u32> for wl_output_v4_transform_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_output_v4_transform_u32> for u32 {
+    fn from(value: wl_output_v4_transform_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "transformation applied to buffer contents\n\n\n        This describes transformations that clients and compositors apply to\n        buffer contents.\n\n        The flipped values correspond to an initial flip around a\n        vertical axis followed by rotation.\n\n        The purpose is mainly to allow clients to render accordingly and\n        tell the compositor, so that for fullscreen surfaces, the\n        compositor will still be able to scan out directly from client\n        surfaces.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_output_v4_transform_i32(i32);
+impl wl_output_v4_transform_i32 {
+    #[doc = "no transform"]
+    pub const NORMAL: Self = Self(0);
+    #[doc = "90 degrees counter-clockwise"]
+    pub const VARIANT_90: Self = Self(1);
+    #[doc = "180 degrees counter-clockwise"]
+    pub const VARIANT_180: Self = Self(2);
+    #[doc = "270 degrees counter-clockwise"]
+    pub const VARIANT_270: Self = Self(3);
+    #[doc = "180 degree flip around a vertical axis"]
+    pub const FLIPPED: Self = Self(4);
+    #[doc = "flip and rotate 90 degrees counter-clockwise"]
+    pub const FLIPPED_90: Self = Self(5);
+    #[doc = "flip and rotate 180 degrees counter-clockwise"]
+    pub const FLIPPED_180: Self = Self(6);
+    #[doc = "flip and rotate 270 degrees counter-clockwise"]
+    pub const FLIPPED_270: Self = Self(7);
+}
+impl ::std::convert::From<i32> for wl_output_v4_transform_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_output_v4_transform_i32> for i32 {
+    fn from(value: wl_output_v4_transform_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "mode information\n\n\n        These flags describe properties of an output mode.\n        They are used in the flags bitfield of the mode event.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_output_v4_mode_u32(u32);
+impl wl_output_v4_mode_u32 {
+    #[doc = "indicates this is the current mode"]
+    pub const CURRENT: Self = Self(1);
+    #[doc = "indicates this is the preferred mode"]
+    pub const PREFERRED: Self = Self(2);
+}
+impl ::std::convert::From<u32> for wl_output_v4_mode_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_output_v4_mode_u32> for u32 {
+    fn from(value: wl_output_v4_mode_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "mode information\n\n\n        These flags describe properties of an output mode.\n        They are used in the flags bitfield of the mode event.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_output_v4_mode_i32(i32);
+impl wl_output_v4_mode_i32 {
+    #[doc = "indicates this is the current mode"]
+    pub const CURRENT: Self = Self(1);
+    #[doc = "indicates this is the preferred mode"]
+    pub const PREFERRED: Self = Self(2);
+}
+impl ::std::convert::From<i32> for wl_output_v4_mode_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_output_v4_mode_i32> for i32 {
+    fn from(value: wl_output_v4_mode_i32) -> Self {
+        value.0
+    }
+}
 #[allow(unused)]
 pub struct wl_region_v7_request_proxy {
     object_id: crate::ObjectId,
@@ -7669,6 +9279,44 @@ impl
     }
 }
 #[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_subcompositor_v1_error_u32(u32);
+impl wl_subcompositor_v1_error_u32 {
+    #[doc = "the to-be sub-surface is invalid"]
+    pub const BAD_SURFACE: Self = Self(0);
+    #[doc = "the to-be sub-surface parent is invalid"]
+    pub const BAD_PARENT: Self = Self(1);
+}
+impl ::std::convert::From<u32> for wl_subcompositor_v1_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_subcompositor_v1_error_u32> for u32 {
+    fn from(value: wl_subcompositor_v1_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_subcompositor_v1_error_i32(i32);
+impl wl_subcompositor_v1_error_i32 {
+    #[doc = "the to-be sub-surface is invalid"]
+    pub const BAD_SURFACE: Self = Self(0);
+    #[doc = "the to-be sub-surface parent is invalid"]
+    pub const BAD_PARENT: Self = Self(1);
+}
+impl ::std::convert::From<i32> for wl_subcompositor_v1_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_subcompositor_v1_error_i32> for i32 {
+    fn from(value: wl_subcompositor_v1_error_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
 pub struct wl_subsurface_v1_request_proxy {
     object_id: crate::ObjectId,
     connection: crate::WeakConnection,
@@ -7966,6 +9614,40 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_subsurface_v1_request_set_desy
     }
 }
 #[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_subsurface_v1_error_u32(u32);
+impl wl_subsurface_v1_error_u32 {
+    #[doc = "wl_surface is not a sibling or the parent"]
+    pub const BAD_SURFACE: Self = Self(0);
+}
+impl ::std::convert::From<u32> for wl_subsurface_v1_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_subsurface_v1_error_u32> for u32 {
+    fn from(value: wl_subsurface_v1_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_subsurface_v1_error_i32(i32);
+impl wl_subsurface_v1_error_i32 {
+    #[doc = "wl_surface is not a sibling or the parent"]
+    pub const BAD_SURFACE: Self = Self(0);
+}
+impl ::std::convert::From<i32> for wl_subsurface_v1_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_subsurface_v1_error_i32> for i32 {
+    fn from(value: wl_subsurface_v1_error_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
 pub struct wl_fixes_v2_request_proxy {
     object_id: crate::ObjectId,
     connection: crate::WeakConnection,
@@ -8127,5 +9809,41 @@ impl ::std::convert::TryFrom<(crate::ObjectId, wl_fixes_v2_request_ack_global_re
     ) -> Result<Self, Self::Error> {
         let (__object_id, __structure) = __value;
         __structure.try_into_packet(__object_id)
+    }
+}
+#[doc = "wl_fixes error values\n\n\n        These errors can be emitted in response to wl_fixes requests.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_fixes_v2_error_u32(u32);
+impl wl_fixes_v2_error_u32 {
+    #[doc = "unknown global or the global is not removed"]
+    pub const INVALID_ACK_REMOVE: Self = Self(0);
+}
+impl ::std::convert::From<u32> for wl_fixes_v2_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_fixes_v2_error_u32> for u32 {
+    fn from(value: wl_fixes_v2_error_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "wl_fixes error values\n\n\n        These errors can be emitted in response to wl_fixes requests.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct wl_fixes_v2_error_i32(i32);
+impl wl_fixes_v2_error_i32 {
+    #[doc = "unknown global or the global is not removed"]
+    pub const INVALID_ACK_REMOVE: Self = Self(0);
+}
+impl ::std::convert::From<i32> for wl_fixes_v2_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<wl_fixes_v2_error_i32> for i32 {
+    fn from(value: wl_fixes_v2_error_i32) -> Self {
+        value.0
     }
 }

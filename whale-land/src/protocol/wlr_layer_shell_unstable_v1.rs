@@ -144,6 +144,88 @@ impl ::std::convert::TryFrom<(crate::ObjectId, zwlr_layer_shell_v1_v5_request_de
     }
 }
 #[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_shell_v1_v5_error_u32(u32);
+impl zwlr_layer_shell_v1_v5_error_u32 {
+    #[doc = "wl_surface has another role"]
+    pub const ROLE: Self = Self(0);
+    #[doc = "layer value is invalid"]
+    pub const INVALID_LAYER: Self = Self(1);
+    #[doc = "wl_surface has a buffer attached or committed"]
+    pub const ALREADY_CONSTRUCTED: Self = Self(2);
+}
+impl ::std::convert::From<u32> for zwlr_layer_shell_v1_v5_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_shell_v1_v5_error_u32> for u32 {
+    fn from(value: zwlr_layer_shell_v1_v5_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_shell_v1_v5_error_i32(i32);
+impl zwlr_layer_shell_v1_v5_error_i32 {
+    #[doc = "wl_surface has another role"]
+    pub const ROLE: Self = Self(0);
+    #[doc = "layer value is invalid"]
+    pub const INVALID_LAYER: Self = Self(1);
+    #[doc = "wl_surface has a buffer attached or committed"]
+    pub const ALREADY_CONSTRUCTED: Self = Self(2);
+}
+impl ::std::convert::From<i32> for zwlr_layer_shell_v1_v5_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_shell_v1_v5_error_i32> for i32 {
+    fn from(value: zwlr_layer_shell_v1_v5_error_i32) -> Self {
+        value.0
+    }
+}
+#[doc = "available layers for surfaces\n\n\n        These values indicate which layers a surface can be rendered in. They\n        are ordered by z depth, bottom-most first. Traditional shell surfaces\n        will typically be rendered between the bottom and top layers.\n        Fullscreen shell surfaces are typically rendered at the top layer.\n        Multiple surfaces can share a single layer, and ordering within a\n        single layer is undefined.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_shell_v1_v5_layer_u32(u32);
+impl zwlr_layer_shell_v1_v5_layer_u32 {
+    pub const BACKGROUND: Self = Self(0);
+    pub const BOTTOM: Self = Self(1);
+    pub const TOP: Self = Self(2);
+    pub const OVERLAY: Self = Self(3);
+}
+impl ::std::convert::From<u32> for zwlr_layer_shell_v1_v5_layer_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_shell_v1_v5_layer_u32> for u32 {
+    fn from(value: zwlr_layer_shell_v1_v5_layer_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "available layers for surfaces\n\n\n        These values indicate which layers a surface can be rendered in. They\n        are ordered by z depth, bottom-most first. Traditional shell surfaces\n        will typically be rendered between the bottom and top layers.\n        Fullscreen shell surfaces are typically rendered at the top layer.\n        Multiple surfaces can share a single layer, and ordering within a\n        single layer is undefined.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_shell_v1_v5_layer_i32(i32);
+impl zwlr_layer_shell_v1_v5_layer_i32 {
+    pub const BACKGROUND: Self = Self(0);
+    pub const BOTTOM: Self = Self(1);
+    pub const TOP: Self = Self(2);
+    pub const OVERLAY: Self = Self(3);
+}
+impl ::std::convert::From<i32> for zwlr_layer_shell_v1_v5_layer_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_shell_v1_v5_layer_i32> for i32 {
+    fn from(value: zwlr_layer_shell_v1_v5_layer_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
 pub trait zwlr_layer_surface_v1_v5_event_handler: crate::protocol::EventHandler {
     fn handle_configure(
         &self,
@@ -884,5 +966,139 @@ impl ::std::convert::TryFrom<(crate::ObjectId, zwlr_layer_surface_v1_v5_event_cl
     ) -> Result<Self, Self::Error> {
         let (__object_id, __structure) = __value;
         __structure.try_into_packet(__object_id)
+    }
+}
+#[doc = "types of keyboard interaction possible for a layer shell surface\n\n\n        Types of keyboard interaction possible for layer shell surfaces. The\n        rationale for this is twofold: (1) some applications are not interested\n        in keyboard events and not allowing them to be focused can improve the\n        desktop experience; (2) some applications will want to take exclusive\n        keyboard focus.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_surface_v1_v5_keyboard_interactivity_u32(u32);
+impl zwlr_layer_surface_v1_v5_keyboard_interactivity_u32 {
+    pub const NONE: Self = Self(0);
+    pub const EXCLUSIVE: Self = Self(1);
+    pub const ON_DEMAND: Self = Self(2);
+}
+impl ::std::convert::From<u32> for zwlr_layer_surface_v1_v5_keyboard_interactivity_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_surface_v1_v5_keyboard_interactivity_u32> for u32 {
+    fn from(value: zwlr_layer_surface_v1_v5_keyboard_interactivity_u32) -> Self {
+        value.0
+    }
+}
+#[doc = "types of keyboard interaction possible for a layer shell surface\n\n\n        Types of keyboard interaction possible for layer shell surfaces. The\n        rationale for this is twofold: (1) some applications are not interested\n        in keyboard events and not allowing them to be focused can improve the\n        desktop experience; (2) some applications will want to take exclusive\n        keyboard focus.\n      "]
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_surface_v1_v5_keyboard_interactivity_i32(i32);
+impl zwlr_layer_surface_v1_v5_keyboard_interactivity_i32 {
+    pub const NONE: Self = Self(0);
+    pub const EXCLUSIVE: Self = Self(1);
+    pub const ON_DEMAND: Self = Self(2);
+}
+impl ::std::convert::From<i32> for zwlr_layer_surface_v1_v5_keyboard_interactivity_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_surface_v1_v5_keyboard_interactivity_i32> for i32 {
+    fn from(value: zwlr_layer_surface_v1_v5_keyboard_interactivity_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_surface_v1_v5_error_u32(u32);
+impl zwlr_layer_surface_v1_v5_error_u32 {
+    #[doc = "provided surface state is invalid"]
+    pub const INVALID_SURFACE_STATE: Self = Self(0);
+    #[doc = "size is invalid"]
+    pub const INVALID_SIZE: Self = Self(1);
+    #[doc = "anchor bitfield is invalid"]
+    pub const INVALID_ANCHOR: Self = Self(2);
+    #[doc = "keyboard interactivity is invalid"]
+    pub const INVALID_KEYBOARD_INTERACTIVITY: Self = Self(3);
+    #[doc = "exclusive edge is invalid given the surface anchors"]
+    pub const INVALID_EXCLUSIVE_EDGE: Self = Self(4);
+}
+impl ::std::convert::From<u32> for zwlr_layer_surface_v1_v5_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_surface_v1_v5_error_u32> for u32 {
+    fn from(value: zwlr_layer_surface_v1_v5_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_surface_v1_v5_error_i32(i32);
+impl zwlr_layer_surface_v1_v5_error_i32 {
+    #[doc = "provided surface state is invalid"]
+    pub const INVALID_SURFACE_STATE: Self = Self(0);
+    #[doc = "size is invalid"]
+    pub const INVALID_SIZE: Self = Self(1);
+    #[doc = "anchor bitfield is invalid"]
+    pub const INVALID_ANCHOR: Self = Self(2);
+    #[doc = "keyboard interactivity is invalid"]
+    pub const INVALID_KEYBOARD_INTERACTIVITY: Self = Self(3);
+    #[doc = "exclusive edge is invalid given the surface anchors"]
+    pub const INVALID_EXCLUSIVE_EDGE: Self = Self(4);
+}
+impl ::std::convert::From<i32> for zwlr_layer_surface_v1_v5_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_surface_v1_v5_error_i32> for i32 {
+    fn from(value: zwlr_layer_surface_v1_v5_error_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_surface_v1_v5_anchor_u32(u32);
+impl zwlr_layer_surface_v1_v5_anchor_u32 {
+    #[doc = "the top edge of the anchor rectangle"]
+    pub const TOP: Self = Self(1);
+    #[doc = "the bottom edge of the anchor rectangle"]
+    pub const BOTTOM: Self = Self(2);
+    #[doc = "the left edge of the anchor rectangle"]
+    pub const LEFT: Self = Self(4);
+    #[doc = "the right edge of the anchor rectangle"]
+    pub const RIGHT: Self = Self(8);
+}
+impl ::std::convert::From<u32> for zwlr_layer_surface_v1_v5_anchor_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_surface_v1_v5_anchor_u32> for u32 {
+    fn from(value: zwlr_layer_surface_v1_v5_anchor_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct zwlr_layer_surface_v1_v5_anchor_i32(i32);
+impl zwlr_layer_surface_v1_v5_anchor_i32 {
+    #[doc = "the top edge of the anchor rectangle"]
+    pub const TOP: Self = Self(1);
+    #[doc = "the bottom edge of the anchor rectangle"]
+    pub const BOTTOM: Self = Self(2);
+    #[doc = "the left edge of the anchor rectangle"]
+    pub const LEFT: Self = Self(4);
+    #[doc = "the right edge of the anchor rectangle"]
+    pub const RIGHT: Self = Self(8);
+}
+impl ::std::convert::From<i32> for zwlr_layer_surface_v1_v5_anchor_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<zwlr_layer_surface_v1_v5_anchor_i32> for i32 {
+    fn from(value: zwlr_layer_surface_v1_v5_anchor_i32) -> Self {
+        value.0
     }
 }

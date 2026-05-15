@@ -634,6 +634,40 @@ impl
     }
 }
 #[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct ext_data_control_device_v1_v1_error_u32(u32);
+impl ext_data_control_device_v1_v1_error_u32 {
+    #[doc = "source given to set_selection or set_primary_selection was already used before"]
+    pub const USED_SOURCE: Self = Self(1);
+}
+impl ::std::convert::From<u32> for ext_data_control_device_v1_v1_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<ext_data_control_device_v1_v1_error_u32> for u32 {
+    fn from(value: ext_data_control_device_v1_v1_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct ext_data_control_device_v1_v1_error_i32(i32);
+impl ext_data_control_device_v1_v1_error_i32 {
+    #[doc = "source given to set_selection or set_primary_selection was already used before"]
+    pub const USED_SOURCE: Self = Self(1);
+}
+impl ::std::convert::From<i32> for ext_data_control_device_v1_v1_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<ext_data_control_device_v1_v1_error_i32> for i32 {
+    fn from(value: ext_data_control_device_v1_v1_error_i32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
 pub trait ext_data_control_source_v1_v1_event_handler: crate::protocol::EventHandler {
     fn handle_send(
         &self,
@@ -895,6 +929,40 @@ impl
     ) -> Result<Self, Self::Error> {
         let (__object_id, __structure) = __value;
         __structure.try_into_packet(__object_id)
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct ext_data_control_source_v1_v1_error_u32(u32);
+impl ext_data_control_source_v1_v1_error_u32 {
+    #[doc = "offer sent after ext_data_control_device.set_selection"]
+    pub const INVALID_OFFER: Self = Self(1);
+}
+impl ::std::convert::From<u32> for ext_data_control_source_v1_v1_error_u32 {
+    fn from(value: u32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<ext_data_control_source_v1_v1_error_u32> for u32 {
+    fn from(value: ext_data_control_source_v1_v1_error_u32) -> Self {
+        value.0
+    }
+}
+#[allow(unused)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct ext_data_control_source_v1_v1_error_i32(i32);
+impl ext_data_control_source_v1_v1_error_i32 {
+    #[doc = "offer sent after ext_data_control_device.set_selection"]
+    pub const INVALID_OFFER: Self = Self(1);
+}
+impl ::std::convert::From<i32> for ext_data_control_source_v1_v1_error_i32 {
+    fn from(value: i32) -> Self {
+        Self(value)
+    }
+}
+impl ::std::convert::From<ext_data_control_source_v1_v1_error_i32> for i32 {
+    fn from(value: ext_data_control_source_v1_v1_error_i32) -> Self {
+        value.0
     }
 }
 #[allow(unused)]
