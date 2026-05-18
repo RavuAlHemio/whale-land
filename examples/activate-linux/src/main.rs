@@ -16,7 +16,7 @@ use whale_land::protocol::wlr_layer_shell_unstable_v1::{
     zwlr_layer_shell_v1_v5_layer_u32, zwlr_layer_shell_v1_v5_request_proxy,
     zwlr_layer_surface_v1_v5_event_handler, zwlr_layer_surface_v1_v5_request_proxy,
 };
-use tracing::{debug, info, instrument};
+use tracing::{debug, error, info, instrument};
 
 
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -47,6 +47,41 @@ impl Default for DisplayState {
     }
 }
 static DISPLAY_STATE: LazyLock<Mutex<DisplayState>> = LazyLock::new(|| Mutex::new(DisplayState::default()));
+
+
+#[derive(Debug)]
+struct DisplayHandler;
+#[async_trait]
+impl EventHandler for DisplayHandler {
+    async fn handle_event(&self, connection: &Connection, packet: Packet) -> Result<(), Error> {
+        wl_display_v1_event_handler::handle_event(self, connection, packet).await
+    }
+}
+impl wl_display_v1_event_handler for DisplayHandler {
+    #[instrument(skip(connection, packet))]
+    async fn handle_error(
+        &self,
+        connection: &Connection,
+        packet: Packet,
+        object_id: Option<ObjectId>,
+        code: u32,
+        message: String,
+    ) {
+        let _ = (connection, packet);
+        error!("error received");
+    }
+
+    #[instrument(skip(connection, packet))]
+    async fn handle_delete_id(
+        &self,
+        connection: &Connection,
+        packet: Packet,
+        id: u32,
+    ) {
+        let _ = (connection, packet);
+        debug!("object deleted");
+    }
+}
 
 
 #[derive(Debug)]
@@ -430,6 +465,9 @@ async fn run() {
     // connect to Wayland
     let wl = Connection::new_from_env()
         .await.expect("failed to connect to Wayland");
+
+    // register a display handler
+    wl.register_handler(whale_land::ObjectId::DISPLAY, Box::new(DisplayHandler)).await;
 
     // make a registry
     let registry_oid = wl.get_and_increment_next_object_id();
