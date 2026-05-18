@@ -1,5 +1,5 @@
 use std::collections::BTreeMap;
-use std::env;
+use std::{env, io};
 use std::ffi::OsString;
 use std::num::NonZero;
 use std::path::{Path, PathBuf};
@@ -81,12 +81,20 @@ impl Connection {
             let mut fds = Vec::new();
 
             // SocketFdExt functions handle WouldBlock for us
-            let (mut total_received, _fd_count) = self.inner.socket
+            let (mut total_received, fd_count) = self.inner.socket
                 .recv_with_fds(&mut fixed_buf, &mut fds).await?;
+            if total_received == 0 && fd_count == 0 {
+                // received nothing
+                return Err(Error::Io(io::ErrorKind::UnexpectedEof.into()));
+            }
             while total_received < fixed_buf.len() {
                 // receive more
-                let (now_received, _now_received_fds) = self.inner.socket
+                let (now_received, now_received_fds) = self.inner.socket
                     .recv_with_fds(&mut fixed_buf[total_received..], &mut fds).await?;
+                if now_received == 0 && now_received_fds == 0 {
+                    // received nothing
+                    return Err(Error::Io(io::ErrorKind::UnexpectedEof.into()));
+                }
                 total_received += now_received;
             }
 
