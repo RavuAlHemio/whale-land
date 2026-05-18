@@ -3,6 +3,7 @@ pub mod error;
 pub mod fixed;
 pub mod packet;
 pub mod protocol;
+pub mod shared_memory;
 mod socket_fd_ext;
 
 
