@@ -222,6 +222,7 @@ impl wl_surface_v7_event_handler for SurfaceHandler {
         packet: Packet,
         output: Option<ObjectId>,
     ) {
+        let _ = (connection, packet);
         info!("enter");
     }
 
@@ -232,6 +233,7 @@ impl wl_surface_v7_event_handler for SurfaceHandler {
         packet: Packet,
         output: Option<ObjectId>,
     ) {
+        let _ = (connection, packet);
         info!("leave");
     }
 
@@ -242,6 +244,7 @@ impl wl_surface_v7_event_handler for SurfaceHandler {
         packet: Packet,
         factor: i32,
     ) {
+        let _ = (connection, packet);
         info!("preferred_buffer_scale");
         let mut state_guard = DISPLAY_STATE.lock().await;
         state_guard.preferred_scale = factor;
@@ -254,6 +257,7 @@ impl wl_surface_v7_event_handler for SurfaceHandler {
         packet: Packet,
         transform: u32,
     ) {
+        let _ = (connection, packet);
         info!("preferred_buffer_transform");
         let mut state_guard = DISPLAY_STATE.lock().await;
         state_guard.preferred_transform = transform.into();
@@ -279,6 +283,7 @@ impl zwlr_layer_surface_v1_v5_event_handler for LayerSurfaceHandler {
         width: u32,
         height: u32,
     ) {
+        let _ = packet;
         let mut state_guard = DISPLAY_STATE.lock().await;
         state_guard.width = width;
         state_guard.height = height;
@@ -368,6 +373,7 @@ impl zwlr_layer_surface_v1_v5_event_handler for LayerSurfaceHandler {
         connection: &Connection,
         packet: Packet,
     ) {
+        let _ = (connection, packet);
         info!("closed");
     }
 }
@@ -389,6 +395,7 @@ impl wl_shm_v2_event_handler for SharedMemoryHandler {
         packet: Packet,
         format: u32,
     ) {
+        let _ = (connection, packet);
         debug!("supported pixel buffer format: {}", format);
     }
 }
@@ -409,6 +416,7 @@ impl wl_buffer_v1_event_handler for BufferHandler {
         connection: &Connection,
         packet: Packet,
     ) {
+        let _ = (connection, packet);
         info!("buffer released");
     }
 }
