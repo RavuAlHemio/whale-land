@@ -10,11 +10,15 @@ use whale_land::shared_memory::SharedMemoryObject;
 use whale_land::{Connection, Error, NewObject, NewObjectId, ObjectId, Packet};
 use whale_land::protocol::EventHandler;
 use whale_land::protocol::wayland::{
-    wl_buffer_v1_event_handler, wl_compositor_v7_request_proxy, wl_output_v4_transform_u32, wl_registry_v1_event_handler, wl_registry_v1_request_proxy, wl_shm_pool_v2_request_proxy, wl_shm_v2_event_handler, wl_shm_v2_format_u32, wl_shm_v2_request_proxy, wl_surface_v7_event_handler, wl_surface_v7_request_proxy
+    wl_buffer_v1_event_handler, wl_compositor_v7_request_proxy, wl_display_v1_event_handler,
+    wl_output_v4_transform_u32, wl_registry_v1_event_handler, wl_registry_v1_request_proxy,
+    wl_shm_pool_v2_request_proxy, wl_shm_v2_event_handler, wl_shm_v2_format_u32,
+    wl_shm_v2_request_proxy, wl_surface_v7_event_handler, wl_surface_v7_request_proxy,
 };
 use whale_land::protocol::wlr_layer_shell_unstable_v1::{
     zwlr_layer_shell_v1_v5_layer_u32, zwlr_layer_shell_v1_v5_request_proxy,
-    zwlr_layer_surface_v1_v5_event_handler, zwlr_layer_surface_v1_v5_request_proxy,
+    zwlr_layer_surface_v1_v5_anchor_u32, zwlr_layer_surface_v1_v5_event_handler,
+    zwlr_layer_surface_v1_v5_request_proxy,
 };
 use tracing::{debug, error, info, instrument};
 
@@ -331,9 +335,51 @@ impl zwlr_layer_surface_v1_v5_event_handler for LayerSurfaceHandler {
         layer_surface.send_ack_configure(serial)
             .await.expect("failed to send configuration acknowledgement");
 
-        // calculate the surface
-        let text_image = crate::draw_text::draw_text(state_guard.preferred_scale as f32);
+        // calculate the surface data
+        let mut text_image = crate::draw_text::draw_text(state_guard.preferred_scale as f32);
+
+        // ensure its size is divisible by our scaling factor
+        let preferred_scale_u32 = u32::try_from(state_guard.preferred_scale.abs()).unwrap();
+        while text_image.width % preferred_scale_u32 != 0 {
+            text_image.width += 1;
+        }
+        while text_image.height % preferred_scale_u32 != 0 {
+            text_image.height += 1;
+        }
         let text_image_argb = text_image.to_white_argb_le();
+
+        // set the surface size
+        layer_surface.send_set_size(
+            text_image.width / preferred_scale_u32,
+            text_image.height / preferred_scale_u32,
+        )
+            .await.expect("failed to set surface size");
+
+        // anchor the surface to the bottom right
+        layer_surface.send_set_anchor(
+            u32::from(zwlr_layer_surface_v1_v5_anchor_u32::BOTTOM)
+            | u32::from(zwlr_layer_surface_v1_v5_anchor_u32::RIGHT)
+        )
+            .await.expect("failed to reanchor surface");
+
+        // give it a fixed margin from that corner
+        layer_surface.send_set_margin(
+            0,
+            crate::draw_text::RIGHT_MARGIN,
+            crate::draw_text::BOTTOM_MARGIN,
+            0,
+        )
+            .await.expect("failed to set surface margin");
+
+        // create an empty region to tell the compositor that we aren't interactive
+        let compositor = wl_compositor_v7_request_proxy::new(
+            state_guard.compositor_oid.unwrap(),
+            connection.downgrade(),
+        );
+        let empty_region_oid = connection.get_and_increment_next_object_id();
+        debug!("empty region OID is {}", empty_region_oid.0);
+        compositor.send_create_region(NewObjectId(empty_region_oid))
+            .await.expect("failed to create region");
 
         // create a shared memory segment
         let shared_memory_length: i32 = text_image_argb.len().try_into().unwrap();
@@ -398,6 +444,16 @@ impl zwlr_layer_surface_v1_v5_event_handler for LayerSurfaceHandler {
             0,
         )
             .await.expect("failed to attach buffer to surface");
+
+        // set the scaling factor
+        surface.send_set_buffer_scale(state_guard.preferred_scale)
+            .await.expect("failed to set buffer scaling");
+
+        // assign the empty interaction region
+        surface.send_set_input_region(Some(empty_region_oid))
+            .await.expect("failed to set input region");
+
+        // commit the surface
         surface.send_commit()
             .await.expect("failed to commit buffer");
     }

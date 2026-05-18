@@ -18,6 +18,9 @@ const LOWER_ADD_SPACING: f32 = 0.4;
 
 const BASELINE_SPACING: f32 = 38.0;
 
+pub(crate) const BOTTOM_MARGIN: i32 = 100;
+pub(crate) const RIGHT_MARGIN: i32 = 150;
+
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Image {
