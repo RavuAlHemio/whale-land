@@ -45,6 +45,7 @@ impl Connection {
                 recv_lock: Mutex::new(()),
                 next_object_id: AtomicU32::new(2), // 0 is NULL, 1 is always wl_display
                 object_id_to_event_handler: RwLock::new(BTreeMap::new()),
+                queued_event_handler_operations: RwLock::new(BTreeMap::new()),
             }),
         })
     }
@@ -140,20 +141,39 @@ impl Connection {
     }
 
     pub async fn register_handler(&self, object_id: ObjectId, event_handler: Box<dyn EventHandler + Send + Sync>) {
-        let mut map_guard = self.inner.object_id_to_event_handler
+        let mut queue_guard = self.inner.queued_event_handler_operations
             .write().await;
-        map_guard
-            .insert(object_id, event_handler);
+        queue_guard
+            .insert(object_id, EventHandlerOperation::Register(event_handler));
     }
 
     pub async fn drop_handler(&self, object_id: ObjectId) {
+        let mut queue_guard = self.inner.queued_event_handler_operations
+            .write().await;
+        queue_guard
+            .insert(object_id, EventHandlerOperation::Unregister);
+    }
+
+    async fn update_event_handler_registrations(&self) {
+        let mut queue_guard = self.inner.queued_event_handler_operations
+            .write().await;
         let mut map_guard = self.inner.object_id_to_event_handler
             .write().await;
-        map_guard
-            .remove(&object_id);
+        while let Some((object_id, operation)) = queue_guard.pop_first() {
+            match operation {
+                EventHandlerOperation::Register(event_handler) => {
+                    map_guard.insert(object_id, event_handler);
+                },
+                EventHandlerOperation::Unregister => {
+                    map_guard.remove(&object_id);
+                },
+            }
+        }
     }
 
     pub async fn dispatch(&self, packet: Packet) -> Result<(), Error> {
+        self.update_event_handler_registrations().await;
+
         let map_guard = self.inner.object_id_to_event_handler
             .read().await;
         let event_handler = map_guard
@@ -190,4 +210,10 @@ struct InnerConnection {
     recv_lock: Mutex<()>,
     next_object_id: AtomicU32,
     object_id_to_event_handler: RwLock<BTreeMap<ObjectId, Box<dyn EventHandler + Send + Sync>>>,
+    queued_event_handler_operations: RwLock<BTreeMap<ObjectId, EventHandlerOperation>>,
+}
+
+enum EventHandlerOperation {
+    Register(Box<dyn EventHandler + Send + Sync>),
+    Unregister,
 }
