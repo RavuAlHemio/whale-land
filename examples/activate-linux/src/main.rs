@@ -154,7 +154,7 @@ impl EventHandler for RegistryHandler {
     }
 }
 impl wl_registry_v1_event_handler for RegistryHandler {
-    #[instrument(skip_all)]
+    #[instrument(skip(connection, packet))]
     async fn handle_global(
         &self,
         connection: &Connection,
@@ -228,7 +228,7 @@ impl wl_registry_v1_event_handler for RegistryHandler {
         }
     }
 
-    #[instrument(skip_all)]
+    #[instrument(skip(connection, packet))]
     async fn handle_global_remove(
         &self,
         connection: &Connection,
